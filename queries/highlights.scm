@@ -1,6 +1,8 @@
 "=" @operator
 ";" @delimiter
 
+(self) @variable.builtin
+
 [
   "class"
   "function"
@@ -26,8 +28,8 @@
 )
 
 (
-  class_variable
-  name: (identifier) @variable.member
+  instance_variable
+  right: (identifier) @variable.member
 )
 
 (

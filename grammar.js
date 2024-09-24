@@ -13,49 +13,90 @@ module.exports = grammar({
   ],
   inline: $ => [
     $._class_body_declaration,
-    $._value,
     $._primitive,
+    $.expression,
   ],
 
   rules: {
     // TODO: add the actual grammar rules
     source_file: $ => choice($.class_specifier),
+
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
     class_specifier: $ => seq(
       "class",
       field("name", alias($.identifier, $.type_identifier)),
       field("body", $.class_body),
     ),
-
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-
     class_body: $ => seq(
       "{",
       repeat($._class_body_declaration),
       "}",
     ),
+    _class_body_declaration: $ => field("member", choice(
+      $.method_declaration,
+      alias($.member_assignment, $.instance_variable),
+    )),
 
     method_declaration: $ => seq(
       "function",
       field("name", $.identifier),
       field("parameters", $.method_parameters),
-      field("body", $.method_block),
+      field("body", $.block),
     ),
+    member_assignment: $ => seq(
+      field("right", $.identifier),
+      "=",
+      field("left", $.expression),
+      ";"
+    ),
+
+    assignment: $ => seq(
+      field("right", choice(
+        $.self,
+        $.identifier,
+        $.member_expression,
+      )),
+      "=",
+      field("left", $.expression),
+      ";"
+    ),
+
+    self: _ => "self",
+
+    member_expression: $ => seq(
+      choice(
+        $.self,
+        $.identifier,
+      ),
+      ".",
+      choice(
+        $.member_expression,
+        $.identifier,
+      ),
+    ),
+
     method_parameters: $ => seq(
       "(",
       commaSep($.identifier),
       ")",
     ),
-    method_block: $ => seq(
+    block: $ => seq(
       "{",
+      optional(repeat($.statement)),
       "}",
     ),
-
-    _class_body_declaration: $ => choice(
-      $.method_declaration,
-      field("declarator", alias($.variable_declaration, $.class_variable)),
+    statement: $ => choice(
+      $.assignment,
     ),
 
-    _value: $ => choice(
+    expression: $ => choice(
+      $.member_expression,
+      $.identifier,
+      $.primary_expression,
+    ),
+
+    primary_expression: $ => choice(
       $._primitive,
     ),
     _primitive: $ => choice(
@@ -77,13 +118,6 @@ module.exports = grammar({
       DIGITS,
       ".",
       optional(DIGITS),
-    ),
-
-    variable_declaration: $ => seq(
-      field("name", $.identifier),
-      "=",
-      field("value", $._value),
-      ";",
     ),
 
     comment: $ => choice(
