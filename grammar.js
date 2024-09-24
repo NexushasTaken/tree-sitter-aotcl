@@ -2,7 +2,7 @@
 // @ts-check
 
 module.exports = grammar({
-  name: "cl",
+  name: "aotcl",
 
   rules: {
     // TODO: add the actual grammar rules
