@@ -1,1 +1,17 @@
-hello
+class Main {
+  InstanceVariable = "hello";
+  _private_variable = "world";
+  null = null;
+  bool = true;
+  int = 3821;
+  float = 3.14;
+  # This is line comment
+  /*
+    This is block comment
+  */
+
+  function HelloWorld() {}
+  function HelloWorld(param1) {}
+  function HelloWorld(param1, param2) {}
+  function HelloWorld(param1, param2, param3) {}
+}
