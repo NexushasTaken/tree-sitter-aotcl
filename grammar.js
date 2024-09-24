@@ -82,7 +82,7 @@ module.exports = grammar({
     variable_declaration: $ => seq(
       field("name", $.identifier),
       "=",
-      field("value", $._value), // TODO: temporary
+      field("value", $._value),
       ";",
     ),
 
