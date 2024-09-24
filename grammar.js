@@ -27,8 +27,6 @@ module.exports = grammar({
     ),
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-    instance_identifier: $ => /[a-zA-Z][a-zA-Z0-9_]+/,
-    private_identifier: $ => /_[a-zA-Z0-9_]+/,
 
     class_body: $ => seq(
       "{",
@@ -54,7 +52,7 @@ module.exports = grammar({
 
     _class_body_declaration: $ => choice(
       $.method_declaration,
-      field("declarator", $.variable_declaration),
+      field("declarator", alias($.variable_declaration, $.class_variable)),
     ),
 
     _value: $ => choice(
@@ -82,10 +80,7 @@ module.exports = grammar({
     ),
 
     variable_declaration: $ => seq(
-      field("name", choice(
-        $.instance_identifier,
-        $.private_identifier,
-      )),
+      field("name", $.identifier),
       "=",
       field("value", $._value), // TODO: temporary
       ";",

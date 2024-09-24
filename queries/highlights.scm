@@ -11,10 +11,9 @@
 (string_primitive) @string
 (null_primitive) @constant.builtin
 (bool_primitive) @type.builtin
-[
-  (decimal_primitive)
-  (decimal_floating_point_primitive)
-] @number
+
+(decimal_primitive) @number
+(decimal_floating_point_primitive) @number.float
 
 [
   (line_comment)
@@ -26,15 +25,12 @@
  name: (identifier) @function
 )
 
-[
-  (instance_identifier)
-  (private_identifier)
-] @local.definition
-
+(
+  class_variable
+  name: (identifier) @variable.member
+)
 
 (
   method_parameters
   (identifier) @variable.parameter
 )
-
-(variable_declaration) @identifier
