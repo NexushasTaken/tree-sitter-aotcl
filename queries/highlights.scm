@@ -28,25 +28,33 @@
 "self" @variable.builtin
 
 [
-  "function"
   "coroutine"
+  "wait"
+] @keyword.coroutine
+
+[
   "if"
   "elif"
   "else"
+] @keyword.conditional
+
+[
   "for"
   "while"
-] @keyword
+] @keyword.repeat
+
+"function" @keyword.function
 
 [
   "class"
   "extension"
   "cutscene"
+  "component"
 ] @keyword.type
 
 "in" @operator
 
 "return" @keyword.return
-"wait" @keyword.coroutine
 
 (
   class_declaration
@@ -55,7 +63,7 @@
 
 (
   field_access
-  ;object: (object) @type
+  object: (object) @variable
   field: (identifier) @variable.member
 )
 
@@ -73,7 +81,10 @@
 )
 ; Callbacks
 (
-  (field_access object: (object) @type.builtin)
+  [
+    (class_declaration name: (identifier) @type.builtin)
+    (field_access object: (object) @type.builtin)
+  ]
   (#match? @type.builtin "^(Main|Components)$")
 )
 
@@ -128,4 +139,4 @@
   ")"
   "{"
   "}"
-]  @punctuation.bracket
+] @punctuation.bracket

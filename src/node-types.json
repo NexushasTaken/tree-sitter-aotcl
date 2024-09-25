@@ -850,6 +850,10 @@
     "named": false
   },
   {
+    "type": "component",
+    "named": false
+  },
+  {
     "type": "coroutine",
     "named": false
   },

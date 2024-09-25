@@ -52,8 +52,8 @@ module.exports = grammar({
     identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     class_declaration: $ => seq(
-      // TODO: move "extension" and "cutscene" to another rule?
-      choice("class", "extension", "cutscene"),
+      // TODO: move "extension", "cutscene" and "component" to another rule?
+      choice("class", "extension", "cutscene", "component"),
       field("name", $.identifier),
       field("body", $.class_block),
     ),
