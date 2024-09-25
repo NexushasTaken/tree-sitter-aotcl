@@ -1,5 +1,6 @@
 {
   "name": "aotcl",
+  "word": "identifier",
   "rules": {
     "source_file": {
       "type": "REPEAT",
@@ -25,20 +26,28 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "class"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "class"
+            },
+            {
+              "type": "STRING",
+              "value": "extension"
+            },
+            {
+              "type": "STRING",
+              "value": "cutscene"
+            }
+          ]
         },
         {
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            },
-            "named": true,
-            "value": "type_identifier"
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         },
         {
@@ -85,16 +94,25 @@
         },
         {
           "type": "SYMBOL",
-          "name": "method_declaration"
+          "name": "procedure_declaration"
         }
       ]
     },
-    "method_declaration": {
+    "procedure_declaration": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "function"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "function"
+            },
+            {
+              "type": "STRING",
+              "value": "coroutine"
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -111,7 +129,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "method_parameters"
+              "name": "procedure_parameters"
             },
             "named": true,
             "value": "parameters"
@@ -127,7 +145,7 @@
         }
       ]
     },
-    "method_parameters": {
+    "procedure_parameters": {
       "type": "SEQ",
       "members": [
         {
@@ -177,6 +195,10 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "STRING",
+          "value": "self"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -191,7 +213,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "method_call"
+          "name": "procedure_call"
         }
       ]
     },
@@ -224,7 +246,7 @@
         ]
       }
     },
-    "method_call": {
+    "procedure_call": {
       "type": "SEQ",
       "members": [
         {
@@ -335,7 +357,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "method_call"
+              "name": "procedure_call"
             },
             {
               "type": "SYMBOL",
@@ -1177,7 +1199,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "method_call"
+          "name": "procedure_call"
         },
         {
           "type": "SYMBOL",
@@ -1331,7 +1353,7 @@
   ],
   "conflicts": [
     [
-      "method_call",
+      "procedure_call",
       "argument_list"
     ]
   ],
@@ -1343,5 +1365,7 @@
     "_class_member",
     "_statement"
   ],
-  "supertypes": []
+  "supertypes": [
+    "_primary"
+  ]
 }

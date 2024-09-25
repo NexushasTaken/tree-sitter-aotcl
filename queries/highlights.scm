@@ -19,20 +19,55 @@
   "-"
   "!"
 ] @operator
-";" @delimiter
+[
+  ";"
+  "."
+  ","
+] @punctuation.delimiter
 
-;(self) @variable.builtin
+"self" @variable.builtin
 
 [
-  "class"
   "function"
+  "if"
+  "elif"
+  "else"
+  "for"
+  "while"
 ] @keyword
-(type_identifier) @type
+
+"class" @keyword.type
+
+"in" @operator
+
+"return" @keyword.return
+"wait" @keyword.coroutine
+
+(
+  class_declaration
+  name: (identifier) @type
+)
+(
+  field_access
+  object: (object) @type
+  field: (identifier) @variable.member
+)
+
+(
+  procedure_call
+  method: (
+      field_access
+      field: (identifier) @function.method.call
+    )
+)
 
 ; primitives
 (string_primitive) @string
 (null_primitive) @constant.builtin
-(bool_primitive) @type.builtin
+[
+  "true"
+  "false"
+] @boolean
 
 (decimal_primitive) @number
 (decimal_floating_point_primitive) @number.float
@@ -43,16 +78,30 @@
 ] @comment
 
 (
-  method_declaration
-  name: (identifier) @function
+  procedure_declaration
+  name: (identifier) @function.method
 )
 
 (
   instance_variable
-  left: (field_access) @variable.member
+  left: (identifier) @variable.member
 )
 
 (
-  method_parameters
-  (identifier) @variable.parameter
+  procedure_declaration
+  parameters: (
+      parameters
+      (identifier) @variable.parameter
+    )
 )
+(
+  assignment
+  left: (identifier) @variable
+)
+
+[
+  "("
+  ")"
+  "{"
+  "}"
+]  @punctuation.bracket

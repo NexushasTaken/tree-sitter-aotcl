@@ -24,6 +24,9 @@ const PREC = {
 module.exports = grammar({
   name: "aotcl",
 
+  supertypes: $ => [
+    $._primary,
+  ],
   extras: $ => [
     $.line_comment,
     $.block_comment,
@@ -36,8 +39,10 @@ module.exports = grammar({
     $._statement,
   ],
   conflicts: $ => [
-    [$.method_call, $.argument_list]
+    [$.procedure_call, $.argument_list]
   ],
+
+  word: $ => $.identifier,
 
   rules: {
     source_file: $ => repeat($._top_level),
@@ -47,8 +52,9 @@ module.exports = grammar({
     identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     class_declaration: $ => seq(
-      "class",
-      field("name", alias($.identifier, $.type_identifier)),
+      // TODO: move "extension" and "cutscene" to another rule?
+      choice("class", "extension", "cutscene"),
+      field("name", $.identifier),
       field("body", $.class_block),
     ),
     class_block: $ => seq(
@@ -59,32 +65,33 @@ module.exports = grammar({
     _class_member: $ => choice(
       // FIX: (field_access) exist in (instance_variable) declaration
       alias($.assignment, $.instance_variable),
-      $.method_declaration,
+      $.procedure_declaration,
     ),
 
-    method_declaration: $ => seq(
-      "function",
+    procedure_declaration: $ => seq(
+      choice("function", "coroutine"),
       field("name", $.identifier),
-      field("parameters", alias($.method_parameters, $.parameters)),
+      field("parameters", alias($.procedure_parameters, $.parameters)),
       field("body", $.block),
     ),
-    method_parameters: $ => seq(
+    procedure_parameters: $ => seq(
       "(",
       commaSep($.identifier),
       ")",
     ),
 
     object: $ => choice(
+      "self",
       alias($.identifier, $.object),
       $.field_access,
-      $.method_call,
+      $.procedure_call,
     ),
     field_access: $ => prec.left(PREC.ACCESS, seq(
       field("object", $.object),
       ".",
       field("field", $.identifier),
     )),
-    method_call: $ => seq(
+    procedure_call: $ => seq(
       field("method", choice($.field_access, $.identifier)),
       field("arguments", $.argument_list),
     ),
@@ -101,7 +108,7 @@ module.exports = grammar({
     ),
     _simple_statement: $ => seq(
       choice(
-        $.method_call,
+        $.procedure_call,
         $.return_statement,
         $.wait_statement,
       ),
@@ -208,7 +215,7 @@ module.exports = grammar({
       $.decimal_floating_point_primitive,
       $.identifier,
       $.field_access,
-      $.method_call,
+      $.procedure_call,
       $.parenthesized_expression,
     ),
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),
@@ -258,13 +265,7 @@ identifier        =  / [a-zA-Z_][a-zA-Z0-9_]* / ;
 
 class_declaration = 'class' identifier class_block ;
 class_block       = '{' class_member* '}' ;
-class_member      = assignment | method_declaration ;
-
-# expression        = equality ;
-# equality          = comparison ( ( '!=' | '==' ) comparison )* ;
-# comparison        = term ( ( '>' | '>=' | '<' | '<=' ) term )* ;
-# term              = factor ( ( '-' | '+' ) factor )* ;
-# factor            = unary ( ( '/' | '*' ) unary )* ;
+class_member      = assignment | procedure_declaration ;
 
 expression        = binary | unary | primary ;
 binary            = expression ( '!=' | '==' | '>' | '>=' | '<' | '<=' | '-' | '+' | '/' | '*' ) expression;
@@ -277,21 +278,21 @@ primary           = string_primitive
                   | floating_point
                   | identifier
                   | field_access
-                  | method_call
+                  | procedure_call
                   | paren_expr ;
 paren_expr        = '(' expression ')' ;
 
 TODO: rework these rules?
-object            = identifier | field_access | method_call ;
+object            = identifier | field_access | procedure_call ;
 field_access      = object '.' identifier ;
-method_call       = ( field_access | identifier ) argument_list ;
+procedure_call    = ( field_access | identifier ) argument_list ;
 argument_list     = '(' expression ( ',' expression )* ')' ;
 
-method_decl       = 'function' identifier method_params method_block ;
-method_params     = '(' identifier* ')' ;
-method_block      = '{' statement* '}' ;
+procedure_decl    = 'function' identifier procedure_params procedure_block ;
+procedure_params  = '(' identifier* ')' ;
+procedure_block   = '{' statement* '}' ;
 
-assignment         = ( field_access | identifier ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
+assignment        = ( field_access | identifier ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
 
 compound_statement = if_statement | while_statement | for_statement ;
 if_statement      = 'if' paren_expr block elif_clause* else_clause? ;
@@ -301,11 +302,11 @@ else_clause       = 'else' block ;
 while_statement   = 'while' paren_expr block ;
 for_statement     = 'for' '(' identifier 'in' expression ')' block ;
 
-simple_statement  = ( method_call | return_statement | wait_statement ) ';' ;
+simple_statement  = ( procedure_call | return_statement | wait_statement ) ';' ;
 return_statement  = 'return' expression ;
 wait_statement    = 'wait' expression ;
 
-statement          = assignment | compount_statement | simple_statement ;
+statement         = assignment | compount_statement | simple_statement ;
 block             = '{' statement* '}' ;
 */
 
