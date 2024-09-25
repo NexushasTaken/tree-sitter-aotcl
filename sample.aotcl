@@ -15,6 +15,10 @@ class Main {
   */
   function HelloWorld() {
     str = "A";
-    self.str = "A";
+    self.a = 1;
+    self.a.b = 2;
+    self.a().b().a.b = 3;
+    a = self.b();
+    b = self.a().b();
   }
 }

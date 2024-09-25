@@ -43,16 +43,16 @@
 ] @comment
 
 (
-  function_declaration
+  method_declaration
   name: (identifier) @function
 )
 
 (
   instance_variable
-  right: (identifier) @variable.member
+  left: (field_access) @variable.member
 )
 
 (
-  function_parameters
+  method_parameters
   (identifier) @variable.parameter
 )

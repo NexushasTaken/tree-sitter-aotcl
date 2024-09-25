@@ -1,5 +1,60 @@
 [
   {
+    "type": "argument_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "bool_primitive",
+          "named": true
+        },
+        {
+          "type": "decimal_floating_point_primitive",
+          "named": true
+        },
+        {
+          "type": "decimal_primitive",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "null_primitive",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "string_primitive",
+          "named": true
+        },
+        {
+          "type": "unary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assignment",
     "named": true,
     "fields": {
@@ -43,6 +98,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
             "named": true
           },
           {
@@ -95,6 +154,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
             "named": true
           },
           {
@@ -198,6 +261,10 @@
             "named": true
           },
           {
+            "type": "method_call",
+            "named": true
+          },
+          {
             "type": "null_primitive",
             "named": true
           },
@@ -266,11 +333,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "decimal_primitive",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "field_access",
@@ -345,6 +407,10 @@
             "named": true
           },
           {
+            "type": "method_call",
+            "named": true
+          },
+          {
             "type": "null_primitive",
             "named": true
           },
@@ -377,6 +443,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "method_call",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "method": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_access",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -431,6 +523,29 @@
     }
   },
   {
+    "type": "object",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -460,6 +575,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "method_call",
           "named": true
         },
         {
@@ -546,6 +665,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_call",
             "named": true
           },
           {
@@ -684,6 +807,10 @@
   },
   {
     "type": "decimal_floating_point_primitive",
+    "named": true
+  },
+  {
+    "type": "decimal_primitive",
     "named": true
   },
   {

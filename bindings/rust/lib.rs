@@ -7,10 +7,7 @@
 //! let code = r#"
 //! "#;
 //! let mut parser = tree_sitter::Parser::new();
-//! let language = tree_sitter_aotcl::LANGUAGE;
-//! parser
-//!     .set_language(&language.into())
-//!     .expect("Error loading Aotcl parser");
+//! parser.set_language(&tree_sitter_aotcl::language()).expect("Error loading Aotcl grammar");
 //! let tree = parser.parse(code, None).unwrap();
 //! assert!(!tree.root_node().has_error());
 //! ```
@@ -20,21 +17,25 @@
 //! [Parser]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Parser.html
 //! [tree-sitter]: https://tree-sitter.github.io/
 
-use tree_sitter_language::LanguageFn;
+use tree_sitter::Language;
 
 extern "C" {
-    fn tree_sitter_aotcl() -> *const ();
+    fn tree_sitter_aotcl() -> Language;
 }
 
-/// The tree-sitter [`LanguageFn`] for this grammar.
-pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_aotcl) };
+/// Get the tree-sitter [Language][] for this grammar.
+///
+/// [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
+pub fn language() -> Language {
+    unsafe { tree_sitter_aotcl() }
+}
 
 /// The content of the [`node-types.json`][] file for this grammar.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
 pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 
-// NOTE: uncomment these to include any queries that this grammar contains:
+// Uncomment these to include any queries that this grammar contains
 
 // pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries/highlights.scm");
 // pub const INJECTIONS_QUERY: &str = include_str!("../../queries/injections.scm");
@@ -47,7 +48,7 @@ mod tests {
     fn test_can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
         parser
-            .set_language(&super::LANGUAGE.into())
-            .expect("Error loading Aotcl parser");
+            .set_language(&super::language())
+            .expect("Error loading Aotcl grammar");
     }
 }

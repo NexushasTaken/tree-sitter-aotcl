@@ -1,8 +1,8 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const DIGITS = repeat1(/[0-9]/);
-const DECIMAL_FLOAT = token(seq(DIGITS, ".", optional(DIGITS)));
+const DIGITS = token(/[0-9]+/);
+const DECIMAL_FLOAT = token(/[0-9]+\.([0-9]+)?/);
 
 const PREC = {
   COMMENT: 0,        // #  /* */
@@ -34,6 +34,9 @@ module.exports = grammar({
     $._primary,
     $._class_member,
   ],
+  conflicts: $ => [
+    [$.method_call, $.argument_list]
+  ],
 
   rules: {
     source_file: $ => repeat($._top_level),
@@ -53,6 +56,7 @@ module.exports = grammar({
       "}",
     ),
     _class_member: $ => choice(
+      // FIX: (field_access) exist in (instance_variable) declaration
       alias($.assignment, $.instance_variable),
       $.method_declaration,
     ),
@@ -74,24 +78,25 @@ module.exports = grammar({
       "}"
     ),
 
-    // _access: $ => choice(
-    //   $.variable_access,
-    //   $.method_call,
-    // ),
-    field_access: $ => seq(
-      field("object", alias($._primary, $.object)),
+    object: $ => choice(
+      alias($.identifier, $.object),
+      $.field_access,
+      $.method_call,
+    ),
+    field_access: $ => prec.left(PREC.ACCESS, seq(
+      field("object", $.object),
       ".",
       field("field", $.identifier),
+    )),
+    method_call: $ => seq(
+      field("method", $.field_access),
+      field("arguments", $.argument_list),
     ),
-    // method_call: $ => seq(
-    //   alias($.identifier, $.method_name),
-    //   $.method_argument,
-    // ),
-    // method_argument: $ => seq(
-    //   "(",
-    //   repeat($._expression),
-    //   ")",
-    // ),
+    argument_list: $ => prec.left(PREC.INVOKE, seq(
+      "(",
+      repeat($._expression),
+      ")",
+    )),
 
     statement: $ => choice(
       $.assignment,
@@ -149,6 +154,7 @@ module.exports = grammar({
       $.decimal_floating_point_primitive,
       $.identifier,
       $.field_access,
+      $.method_call,
       $.parenthesized_expression,
     ),
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),
@@ -160,7 +166,7 @@ module.exports = grammar({
     null_primitive: _ => "null",
     bool_primitive: _ => choice("true", "false"),
     decimal_primitive: _ => DIGITS,
-    decimal_floating_point_primitive: _ => DECIMAL_FLOAT,
+   decimal_floating_point_primitive: _ => DECIMAL_FLOAT,
 
     comment: $ => choice(
       $.line_comment,
@@ -217,17 +223,23 @@ primary           = string_primitive
                   | floating_point
                   | identifier
                   | field_access
+                  | method_call
                   | '(' expression ')' ;
 
-field_access   = identifier '.' identifier ;
+object            = identifier | field_access | method_call ;
+field_access      = object '.' identifier ;
+method_call       = field_access argument_list ;
+argument_list     = '(' expression* ')' ;
 
-method_decl     = 'method' identifier method_params method_block ;
-method_params   = '(' identifier* ')' ;
-method_block    = '{' statement* '}' ;
+self.a
+self.a.b
+self.b()
+self.a().b()
+self.a().b().a.b
 
-access            = variable_access | method_call ;
-method_call     = variable_access method_args ;
-method_args     = '(' expression* ')' ;
+method_decl       = 'method' identifier method_params method_block ;
+method_params     = '(' identifier* ')' ;
+method_block      = '{' statement* '}' ;
 
 assignment        = ( identifier | field_access ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
 statement         = assignment ;
