@@ -173,22 +173,21 @@ module.exports = grammar({
         ["*", PREC.MULT],
         ["/", PREC.MULT],
       ].map(([operator, precedence]) => prec.left(precedence, seq(
-          field("left", $._expression),
-          // @ts-ignore
-          field("operator", operator),
-          field("right", $._expression),
-        ))),
+        field("left", $._expression),
+        // @ts-ignore
+        field("operator", operator),
+        field("right", $._expression),
+      ))),
     ),
     unary: $ => choice(
       ...[
         ["-", PREC.UNARY],
         ["!", PREC.UNARY],
-      ].map(([operator, precedence]) =>
-        prec.left(precedence, seq(
-          // @ts-ignore
-          field("operator", operator),
-          field("operand", $._expression)),
-        )),
+      ].map(([operator, precedence]) => prec.left(precedence, seq(
+        // @ts-ignore
+        field("operator", operator),
+        field("operand", $._expression)),
+      )),
     ),
 
     _primary: $ => choice(
