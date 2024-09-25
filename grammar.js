@@ -120,18 +120,14 @@ module.exports = grammar({
     )),
     if_statement: $ => seq(
       "if",
-      "(",
-      field("condition", alias($._expression, $.expression)),
-      ")",
+      field("condition", alias($.parenthesized_expression, $.expression)),
       field("body", $.block),
       field("alternative", repeat($.elif_clause)),
       field("alternative", optional($.else_clause)),
     ),
     elif_clause: $ => seq(
       "elif",
-      "(",
-      field("condition", alias($._expression, $.expression)),
-      ")",
+      field("condition", alias($.parenthesized_expression, $.expression)),
       field("body", $.block),
     ),
     else_clause: $ => seq(
@@ -140,9 +136,7 @@ module.exports = grammar({
     ),
     while_statement: $ => seq(
       "while",
-      "(",
-      field("condition", alias($._expression, $.expression)),
-      ")",
+      field("condition", alias($.parenthesized_expression, $.expression)),
       field("body", $.block),
     ),
     for_statement: $ => seq(
@@ -284,19 +278,14 @@ primary           = string_primitive
                   | identifier
                   | field_access
                   | method_call
-                  | '(' expression ')' ;
+                  | paren_expr ;
+paren_expr        = '(' expression ')' ;
 
-TODO: rework this rules?
+TODO: rework these rules?
 object            = identifier | field_access | method_call ;
 field_access      = object '.' identifier ;
 method_call       = ( field_access | identifier ) argument_list ;
 argument_list     = '(' expression ( ',' expression )* ')' ;
-
-self.a
-self.a.b
-self.b()
-self.a().b()
-self.a().b().a.b
 
 method_decl       = 'function' identifier method_params method_block ;
 method_params     = '(' identifier* ')' ;
@@ -305,11 +294,11 @@ method_block      = '{' statement* '}' ;
 assignment         = ( field_access | identifier ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
 
 compound_statement = if_statement | while_statement | for_statement ;
-if_statement      = 'if' '(' expression ')' block elif_clause* else_clause? ;
-elif_clause       = 'elif' '(' expression ')' ;
+if_statement      = 'if' paren_expr block elif_clause* else_clause? ;
+elif_clause       = 'elif' paren_expr ;
 else_clause       = 'else' block ;
 
-while_statement   = 'while' '(' expression ')' block ;
+while_statement   = 'while' paren_expr block ;
 for_statement     = 'for' '(' identifier 'in' expression ')' block ;
 
 simple_statement  = ( method_call | return_statement | wait_statement ) ';' ;
