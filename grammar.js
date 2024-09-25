@@ -33,7 +33,7 @@ module.exports = grammar({
     $._expression,
     $._primary,
     $._class_member,
-    $._compound_statement,
+    $._statement,
   ],
   conflicts: $ => [
     [$.method_call, $.argument_list]
@@ -99,10 +99,18 @@ module.exports = grammar({
       $.while_statement,
       $.for_statement,
     ),
-    statement: $ => choice(
+    _simple_statement: $ => seq(
+      choice(
+        $.method_call,
+        $.return_statement,
+        $.wait_statement,
+      ),
+      ";",
+    ),
+    _statement: $ => choice(
       $.assignment,
       $._compound_statement,
-      seq($.method_call, ";"),
+      $._simple_statement,
     ),
     assignment: $ => prec(PREC.ASSIGN, seq(
       field("left", choice($.field_access, $.identifier)),
@@ -146,10 +154,18 @@ module.exports = grammar({
       ")",
       field("body", $.block),
     ),
+    return_statement: $ => seq(
+      "return",
+      optional($._expression),
+    ),
+    wait_statement: $ => seq(
+      "wait",
+      $._expression,
+    ),
 
     block: $ => seq(
       "{",
-      repeat($.statement),
+      repeat($._statement),
       "}",
     ),
 
