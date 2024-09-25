@@ -64,18 +64,13 @@ module.exports = grammar({
     method_declaration: $ => seq(
       "function",
       field("name", $.identifier),
-      field("parameters", $.method_parameters),
-      field("body", $.method_block),
+      field("parameters", alias($.method_parameters, $.parameters)),
+      field("body", $.block),
     ),
     method_parameters: $ => seq(
       "(",
       commaSep($.identifier),
       ")",
-    ),
-    method_block: $ => seq(
-      "{",
-      repeat($.statement),
-      "}"
     ),
 
     object: $ => choice(
@@ -89,17 +84,21 @@ module.exports = grammar({
       field("field", $.identifier),
     )),
     method_call: $ => seq(
-      field("method", $.field_access),
+      field("method", choice($.field_access, $.identifier)),
       field("arguments", $.argument_list),
     ),
     argument_list: $ => prec.left(PREC.INVOKE, seq(
       "(",
-      repeat($._expression),
+      commaSep(repeat($._expression)),
       ")",
     )),
 
     statement: $ => choice(
       $.assignment,
+      $.if_statement,
+      $.while_statement,
+      $.for_statement,
+      seq($.method_call, ";"),
     ),
     assignment: $ => prec(PREC.ASSIGN, seq(
       field("left", choice($.field_access, $.identifier)),
@@ -107,6 +106,48 @@ module.exports = grammar({
       field("right", $._expression),
       ";"
     )),
+    if_statement: $ => seq(
+      "if",
+      "(",
+      field("condition", alias($._expression, $.expression)),
+      ")",
+      field("body", $.block),
+      field("alternative", repeat($.elif_clause)),
+      field("alternative", optional($.else_clause)),
+    ),
+    elif_clause: $ => seq(
+      "elif",
+      "(",
+      field("condition", alias($._expression, $.expression)),
+      ")",
+      field("body", $.block),
+    ),
+    else_clause: $ => seq(
+      "else",
+      field("body", $.block),
+    ),
+    while_statement: $ => seq(
+      "while",
+      "(",
+      field("condition", alias($._expression, $.expression)),
+      ")",
+      field("body", $.block),
+    ),
+    for_statement: $ => seq(
+      "for",
+      "(",
+      field("left", $.identifier),
+      "in",
+      field("right", alias($._expression, $.expression)),
+      ")",
+      field("body", $.block),
+    ),
+
+    block: $ => seq(
+      "{",
+      repeat($.statement),
+      "}",
+    ),
 
     _expression: $ => choice(
       $.unary,
@@ -226,9 +267,10 @@ primary           = string_primitive
                   | method_call
                   | '(' expression ')' ;
 
+TODO: rework this rules?
 object            = identifier | field_access | method_call ;
 field_access      = object '.' identifier ;
-method_call       = field_access argument_list ;
+method_call       = ( field_access | identifier ) argument_list ;
 argument_list     = '(' expression* ')' ;
 
 self.a

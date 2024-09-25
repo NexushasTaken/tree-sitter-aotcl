@@ -1,0 +1,16 @@
+class Loop {
+  function Main() {
+    while (true) {
+      i = 2 + 4;
+      Game.Print(i);
+    }
+    for (i in Obj.List) {
+      i = 2 + 4;
+      Game.Print(i);
+    }
+    for (i in Range(0, 10, 2)) {
+      Game.Print(i);
+    }
+    Range(a);
+  }
+}
