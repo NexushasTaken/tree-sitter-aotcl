@@ -10,14 +10,6 @@
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "primary_expression",
-            "named": true
           }
         ]
       },
@@ -26,15 +18,39 @@
         "required": true,
         "types": [
           {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bool_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_floating_point_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_primitive",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
-            "type": "member_expression",
+            "type": "null_primitive",
             "named": true
           },
           {
-            "type": "self",
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_primitive",
+            "named": true
+          },
+          {
+            "type": "unary",
             "named": true
           }
         ]
@@ -42,24 +58,148 @@
     }
   },
   {
-    "type": "block",
+    "type": "binary",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bool_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_floating_point_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "null_primitive",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_primitive",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bool_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_floating_point_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "null_primitive",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_primitive",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
     }
-  },
-  {
-    "type": "block_comment",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "bool_primitive",
@@ -67,27 +207,26 @@
     "fields": {}
   },
   {
-    "type": "class_body",
+    "type": "class_block",
     "named": true,
-    "fields": {
-      "member": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "instance_variable",
-            "named": true
-          },
-          {
-            "type": "method_declaration",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "instance_variable",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "class_specifier",
+    "type": "class_declaration",
     "named": true,
     "fields": {
       "body": {
@@ -95,7 +234,7 @@
         "required": true,
         "types": [
           {
-            "type": "class_body",
+            "type": "class_block",
             "named": true
           }
         ]
@@ -113,11 +252,6 @@
     }
   },
   {
-    "type": "decimal_floating_point_primitive",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "decimal_primitive",
     "named": true,
     "fields": {}
@@ -133,14 +267,6 @@
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "primary_expression",
-            "named": true
           }
         ]
       },
@@ -149,7 +275,39 @@
         "required": true,
         "types": [
           {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bool_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_floating_point_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_primitive",
+            "named": true
+          },
+          {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "null_primitive",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_primitive",
+            "named": true
+          },
+          {
+            "type": "unary",
             "named": true
           }
         ]
@@ -157,28 +315,15 @@
     }
   },
   {
-    "type": "line_comment",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "member_expression",
+    "type": "method_block",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "self",
+          "type": "statement",
           "named": true
         }
       ]
@@ -193,7 +338,7 @@
         "required": true,
         "types": [
           {
-            "type": "block",
+            "type": "method_block",
             "named": true
           }
         ]
@@ -236,13 +381,17 @@
     }
   },
   {
-    "type": "primary_expression",
+    "type": "parenthesized_expression",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
         {
           "type": "bool_primitive",
           "named": true
@@ -256,11 +405,23 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "null_primitive",
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "string_primitive",
+          "named": true
+        },
+        {
+          "type": "unary",
           "named": true
         }
       ]
@@ -271,11 +432,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "class_specifier",
+          "type": "class_declaration",
           "named": true
         }
       ]
@@ -302,11 +463,81 @@
     "fields": {}
   },
   {
+    "type": "unary",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bool_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_floating_point_primitive",
+            "named": true
+          },
+          {
+            "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "null_primitive",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_primitive",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
     "type": "\"",
     "named": false
   },
   {
-    "type": "#",
+    "type": "&&",
     "named": false
   },
   {
@@ -318,11 +549,31 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "*=",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": "+=",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
-    "type": ".",
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "-=",
     "named": false
   },
   {
@@ -330,7 +581,7 @@
     "named": false
   },
   {
-    "type": "/*",
+    "type": "/=",
     "named": false
   },
   {
@@ -338,12 +589,40 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
   {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "block_comment",
+    "named": true
+  },
+  {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "decimal_floating_point_primitive",
+    "named": true
   },
   {
     "type": "false",
@@ -358,11 +637,11 @@
     "named": true
   },
   {
-    "type": "null_primitive",
+    "type": "line_comment",
     "named": true
   },
   {
-    "type": "self",
+    "type": "null_primitive",
     "named": true
   },
   {
@@ -375,6 +654,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   },
   {

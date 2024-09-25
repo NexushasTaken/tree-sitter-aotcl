@@ -1,7 +1,27 @@
-"=" @operator
+[
+  "="
+  "+="
+  "-="
+  "*="
+  "/="
+  "||"
+  "&&"
+  "=="
+  "!="
+  "<"
+  "<="
+  ">"
+  ">="
+  "+"
+  "-"
+  "*"
+  "/"
+  "-"
+  "!"
+] @operator
 ";" @delimiter
 
-(self) @variable.builtin
+;(self) @variable.builtin
 
 [
   "class"
@@ -23,8 +43,8 @@
 ] @comment
 
 (
- method_declaration
- name: (identifier) @function
+  function_declaration
+  name: (identifier) @function
 )
 
 (
@@ -33,6 +53,6 @@
 )
 
 (
-  method_parameters
+  function_parameters
   (identifier) @variable.parameter
 )
