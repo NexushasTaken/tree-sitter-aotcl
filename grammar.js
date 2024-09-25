@@ -11,7 +11,7 @@ const PREC = {
   OR: 3,             // ||
   AND: 3,            // &&
   EQUALITY: 4,       // ==  !=
-  REL: 4,            // <  <=  >  >=
+  REL: 4,            // <  <!-- <=  > -->  >=
   ADD: 5,            // +  -
   MULT: 6,           // *  /
   UNARY: 7,          // -  !
@@ -78,10 +78,11 @@ module.exports = grammar({
     //   $.variable_access,
     //   $.method_call,
     // ),
-    // variable_access: $ => seq(
-    //   $.identifier,
-    //   repeat(seq(".", $.identifier)),
-    // ),
+    field_access: $ => seq(
+      field("object", alias($._primary, $.object)),
+      ".",
+      field("field", $.identifier),
+    ),
     // method_call: $ => seq(
     //   alias($.identifier, $.method_name),
     //   $.method_argument,
@@ -96,7 +97,7 @@ module.exports = grammar({
       $.assignment,
     ),
     assignment: $ => prec(PREC.ASSIGN, seq(
-      field("left", $.identifier),
+      field("left", choice($.field_access, $.identifier)),
       choice("=", "+=", "-=", "*=", "/="),
       field("right", $._expression),
       ";"
@@ -147,6 +148,7 @@ module.exports = grammar({
       $.decimal_primitive,
       $.decimal_floating_point_primitive,
       $.identifier,
+      $.field_access,
       $.parenthesized_expression,
     ),
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),
@@ -214,18 +216,20 @@ primary           = string_primitive
                   | decimal_primitive
                   | floating_point
                   | identifier
+                  | field_access
                   | '(' expression ')' ;
+
+field_access   = identifier '.' identifier ;
 
 method_decl     = 'method' identifier method_params method_block ;
 method_params   = '(' identifier* ')' ;
 method_block    = '{' statement* '}' ;
 
 access            = variable_access | method_call ;
-variable_access   = identifier ( '.' identifier )* ;
 method_call     = variable_access method_args ;
 method_args     = '(' expression* ')' ;
 
-assignment        = access ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
+assignment        = ( identifier | field_access ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
 statement         = assignment ;
 */
 

@@ -3,7 +3,7 @@ class Main {
   InstanceVariable = "hello";
   _private_variable = "world";
 
-  null = null;
+  null_value = null;
   bool = true;
   int = 3821;
   float = 3.14;
@@ -15,5 +15,6 @@ class Main {
   */
   function HelloWorld() {
     str = "A";
+    self.str = "A";
   }
 }

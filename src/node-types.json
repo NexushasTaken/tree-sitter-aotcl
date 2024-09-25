@@ -8,6 +8,10 @@
         "required": true,
         "types": [
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -31,6 +35,10 @@
           },
           {
             "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "field_access",
             "named": true
           },
           {
@@ -79,6 +87,10 @@
           },
           {
             "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "field_access",
             "named": true
           },
           {
@@ -178,6 +190,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -257,6 +273,32 @@
     "fields": {}
   },
   {
+    "type": "field_access",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "object",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "instance_variable",
     "named": true,
     "fields": {
@@ -264,6 +306,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "field_access",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -288,6 +334,10 @@
           },
           {
             "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "field_access",
             "named": true
           },
           {
@@ -405,6 +455,10 @@
           "named": true
         },
         {
+          "type": "field_access",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -484,6 +538,10 @@
           },
           {
             "type": "decimal_primitive",
+            "named": true
+          },
+          {
+            "type": "field_access",
             "named": true
           },
           {
@@ -574,6 +632,10 @@
   },
   {
     "type": "-=",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
