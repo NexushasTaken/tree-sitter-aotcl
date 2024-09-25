@@ -49,8 +49,7 @@
     {
       "file-types": [
         "cl",
-        "aotcl",
-        "txt"
+        "aotcl"
       ],
       "scope": "source.aotcl",
       "injection-regex": "^aotcl$",
