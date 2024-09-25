@@ -29,6 +29,7 @@
 
 [
   "function"
+  "coroutine"
   "if"
   "elif"
   "else"
@@ -36,7 +37,11 @@
   "while"
 ] @keyword
 
-"class" @keyword.type
+[
+  "class"
+  "extension"
+  "cutscene"
+] @keyword.type
 
 "in" @operator
 
@@ -47,10 +52,29 @@
   class_declaration
   name: (identifier) @type
 )
+
 (
   field_access
-  object: (object) @type
+  ;object: (object) @type
   field: (identifier) @variable.member
+)
+
+; Objects
+(
+  (field_access object: (object) @type.builtin)
+  (#match? @type.builtin
+   "^(Component|Object|Character|Human|Titan|Shifter|MapObject|Transform|Player|NetworkView|Color|Vector3|Quaternion|Dict|List|Range|LineCastHitResult|Random|Game|Network|Map|UI|Time|Convert|String|Input|Math|Random|Cutscene|Camera|RoomData|PersistentData|Json|Physics)$")
+)
+; Static Classes
+(
+  (field_access object: (object) @type.builtin)
+  (#match? @type.builtin
+   "^(Game|Network|Map|UI|Time|Convert|String|Input|Math|Random|Cutscene|Camera|RoomData|PersistentData|Json|Physics)$")
+)
+; Callbacks
+(
+  (field_access object: (object) @type.builtin)
+  (#match? @type.builtin "^(Main|Components)$")
 )
 
 (
