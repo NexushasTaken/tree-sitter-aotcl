@@ -63,7 +63,6 @@ module.exports = grammar({
       "}",
     ),
     _class_member: $ => choice(
-      // FIX: (field_access) exist in (instance_variable) declaration
       alias($.assignment, $.instance_variable),
       $.procedure_declaration,
     ),
@@ -92,7 +91,7 @@ module.exports = grammar({
       field("field", $.identifier),
     )),
     procedure_call: $ => seq(
-      field("method", choice($.field_access, $.identifier)),
+      field("procedure", choice($.field_access, $.identifier)),
       field("arguments", $.argument_list),
     ),
     argument_list: $ => prec.left(PREC.INVOKE, seq(
@@ -151,7 +150,7 @@ module.exports = grammar({
       "(",
       field("left", $.identifier),
       "in",
-      field("right", alias($._expression, $.expression)),
+      field("right", $._expression, $.expression),
       ")",
       field("body", $.block),
     ),
@@ -261,7 +260,7 @@ bool_primitive    = 'true' | 'false' ;
 decimal_primitive = DIGITS ;
 floating_point    = DIGITS '.' DIGITS ;
 
-identifier        =  / [a-zA-Z_][a-zA-Z0-9_]* / ;
+identifier        = /[a-zA-Z_][a-zA-Z0-9_]* / ;
 
 class_declaration = 'class' identifier class_block ;
 class_block       = '{' class_member* '}' ;

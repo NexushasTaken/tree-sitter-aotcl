@@ -48,8 +48,8 @@
   "tree-sitter": [
     {
       "file-types": [
-        "cl",
-        "aotcl"
+        "aotcl",
+        "cl"
       ],
       "scope": "source.aotcl",
       "injection-regex": "^aotcl$",

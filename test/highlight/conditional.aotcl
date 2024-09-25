@@ -1,0 +1,12 @@
+class Main {
+  coroutine Conditional() {
+  # <- keyword.coroutine
+    if (true) {
+    # <- keyword.conditional
+    } elif (false) {
+      # <- keyword.conditional
+    } else {
+      # <- keyword.conditional
+    }
+  }
+}

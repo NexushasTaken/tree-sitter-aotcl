@@ -1,0 +1,6 @@
+class Main {
+  function OnGameStart() {
+    generator = Random(128);
+    range = Range(128);
+  }
+}

@@ -1,0 +1,11 @@
+class CustomClass {
+#                 ^ punctuation.bracket
+  function OnGameStart(param1, param2) {
+    #                 ^ punctuation.bracket
+    #                                ^ punctuation.bracket
+    #                        ^ punctuation.delimiter
+    self.field = 4;
+    #   ^ punctuation.delimiter
+  }
+}
+# <- punctuation.bracket

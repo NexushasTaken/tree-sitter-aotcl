@@ -635,12 +635,12 @@ enum ts_field_identifiers {
   field_condition = 4,
   field_field = 5,
   field_left = 6,
-  field_method = 7,
-  field_name = 8,
-  field_object = 9,
-  field_operand = 10,
-  field_operator = 11,
-  field_parameters = 12,
+  field_name = 7,
+  field_object = 8,
+  field_operand = 9,
+  field_operator = 10,
+  field_parameters = 11,
+  field_procedure = 12,
   field_right = 13,
 };
 
@@ -652,12 +652,12 @@ static const char * const ts_field_names[] = {
   [field_condition] = "condition",
   [field_field] = "field",
   [field_left] = "left",
-  [field_method] = "method",
   [field_name] = "name",
   [field_object] = "object",
   [field_operand] = "operand",
   [field_operator] = "operator",
   [field_parameters] = "parameters",
+  [field_procedure] = "procedure",
   [field_right] = "right",
 };
 
@@ -682,7 +682,7 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_name, 1},
   [2] =
     {field_arguments, 1},
-    {field_method, 0},
+    {field_procedure, 0},
   [4] =
     {field_field, 2},
     {field_object, 0},
@@ -736,9 +736,6 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
   },
   [13] = {
     [1] = alias_sym_expression,
-  },
-  [14] = {
-    [4] = alias_sym_expression,
   },
 };
 

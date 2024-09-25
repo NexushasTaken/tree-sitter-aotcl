@@ -407,7 +407,15 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "_primary",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "unary",
             "named": true
           }
         ]
@@ -567,7 +575,7 @@
           }
         ]
       },
-      "method": {
+      "procedure": {
         "multiple": false,
         "required": true,
         "types": [

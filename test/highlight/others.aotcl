@@ -1,0 +1,21 @@
+class Main {
+  function OnGameStart(param1, param2) {
+  # <- keyword.function
+    wait 0.1;
+    # <- keyword.coroutine
+    self.Instance = 1024;
+    # <- variable.builtin
+    self.field.hello();
+    #    ^ variable.member
+    #          ^ function.method.call
+
+    self.field = Main.call() + 4;
+    #            ^ type
+    #                 ^ function.method.call
+    op = -1 + 2 - 3 * 4 / 5;
+    self.field = CustomClass.call();
+    #                        ^ function.method.call
+    self.field = CustomClass.a.b.call();
+    #                        ^ variable.member
+  }
+}

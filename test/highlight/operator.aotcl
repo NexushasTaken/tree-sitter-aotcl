@@ -1,0 +1,33 @@
+class Main {
+  function OnGameStart(param1, param2) {
+    op = -1 + 2 - 3 * 4 / 5;
+    #  ^ operator
+    #    ^ operator
+    #       ^ operator
+    #           ^ operator
+    #               ^ operator
+    #                   ^ operator
+    op += 1;
+    #  ^ operator
+    op -= 1;
+    #  ^ operator
+    op *= 1;
+    #  ^ operator
+    op /= 1;
+    #  ^ operator
+    condition = true || false && true;
+    #                ^ operator
+    #                         ^ operator
+    equality = true == false != true;
+    #               ^ operator
+    #                        ^ operator
+    comparison = 1 < 2 > 3 <= 4 >= 5;
+    #              ^ operator
+    #                  ^ operator
+    #                      ^ operator
+    #                           ^ operator
+
+    negate = !true;
+    #        ^ operator
+  }
+}

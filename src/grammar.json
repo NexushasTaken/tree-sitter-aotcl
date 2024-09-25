@@ -255,7 +255,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "method",
+          "name": "procedure",
           "content": {
             "type": "CHOICE",
             "members": [
@@ -620,13 +620,8 @@
           "type": "FIELD",
           "name": "right",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
-            },
-            "named": true,
-            "value": "expression"
+            "type": "SYMBOL",
+            "name": "_expression"
           }
         },
         {

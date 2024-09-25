@@ -1,3 +1,50 @@
+(class_declaration
+  name: (identifier) @type)
+
+(instance_variable
+  left: (identifier) @variable.member)
+
+(assignment
+  left: (identifier) @variable)
+
+; field_access
+(field_access
+  object: (object) @type)
+  (#match? @type "^[A-Z]")
+(field_access
+  object: (object) @variable
+  (#match? @variable "^[a-z]"))
+(field_access
+  field: (identifier) @variable.member)
+
+
+; procedure
+(procedure_call
+  procedure: (field_access field: (identifier) @function.method.call))
+(procedure_call
+  procedure: (identifier) @function.builtin)
+
+(procedure_declaration
+  name: (identifier) @function.method)
+(parameters (identifier) @variable.parameter)
+
+
+; primitives
+(string_primitive) @string
+(null_primitive) @constant.builtin
+
+(decimal_primitive) @number
+(decimal_floating_point_primitive) @number.float
+
+[
+  (line_comment)
+  (block_comment)
+] @comment
+
+"self" @variable.builtin
+"function" @keyword.function
+"return" @keyword.return
+
 [
   "="
   "+="
@@ -18,14 +65,21 @@
   "/"
   "-"
   "!"
+  "in"
 ] @operator
+
 [
   ";"
   "."
   ","
 ] @punctuation.delimiter
 
-"self" @variable.builtin
+[
+  "("
+  ")"
+  "{"
+  "}"
+] @punctuation.bracket
 
 [
   "coroutine"
@@ -43,8 +97,6 @@
   "while"
 ] @keyword.repeat
 
-"function" @keyword.function
-
 [
   "class"
   "extension"
@@ -52,91 +104,7 @@
   "component"
 ] @keyword.type
 
-"in" @operator
-
-"return" @keyword.return
-
-(
-  class_declaration
-  name: (identifier) @type
-)
-
-(
-  field_access
-  object: (object) @variable
-  field: (identifier) @variable.member
-)
-
-; Objects
-(
-  (field_access object: (object) @type.builtin)
-  (#match? @type.builtin
-   "^(Component|Object|Character|Human|Titan|Shifter|MapObject|Transform|Player|NetworkView|Color|Vector3|Quaternion|Dict|List|Range|LineCastHitResult|Random|Game|Network|Map|UI|Time|Convert|String|Input|Math|Random|Cutscene|Camera|RoomData|PersistentData|Json|Physics)$")
-)
-; Static Classes
-(
-  (field_access object: (object) @type.builtin)
-  (#match? @type.builtin
-   "^(Game|Network|Map|UI|Time|Convert|String|Input|Math|Random|Cutscene|Camera|RoomData|PersistentData|Json|Physics)$")
-)
-; Callbacks
-(
-  [
-    (class_declaration name: (identifier) @type.builtin)
-    (field_access object: (object) @type.builtin)
-  ]
-  (#match? @type.builtin "^(Main|Components)$")
-)
-
-(
-  procedure_call
-  method: (
-      field_access
-      field: (identifier) @function.method.call
-    )
-)
-
-; primitives
-(string_primitive) @string
-(null_primitive) @constant.builtin
 [
   "true"
   "false"
 ] @boolean
-
-(decimal_primitive) @number
-(decimal_floating_point_primitive) @number.float
-
-[
-  (line_comment)
-  (block_comment)
-] @comment
-
-(
-  procedure_declaration
-  name: (identifier) @function.method
-)
-
-(
-  instance_variable
-  left: (identifier) @variable.member
-)
-
-(
-  procedure_declaration
-  parameters: (
-      parameters
-      (identifier) @variable.parameter
-    )
-)
-(
-  assignment
-  left: (identifier) @variable
-)
-
-[
-  "("
-  ")"
-  "{"
-  "}"
-] @punctuation.bracket

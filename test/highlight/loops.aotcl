@@ -1,0 +1,15 @@
+class Main {
+  function Loops() {
+    for (i in Range(1, 2, 3)) {
+    #         ^ function.builtin
+    # <- keyword.repeat
+    }
+    while (true) {
+    # <- keyword.repeat
+    }
+    return true;
+    # <- keyword.return
+    return;
+    # <- keyword.return
+  }
+}

@@ -1,0 +1,51 @@
+class Main {
+  Instance = 256;
+  # <- variable.member
+  #          ^ number
+  _private = 3.14;
+  # <- variable.member
+  #          ^ number.float
+
+  str = "Hello, World";
+  # <- variable.member
+  #     ^ string
+
+  bool_true = true;
+  # <- variable.member
+  #           ^ boolean
+  bool_false = false;
+  # <- variable.member
+  #            ^ boolean
+
+  function OnGameStart(param1, param2) {
+    #                  ^ variable.parameter
+    #                          ^ variable.parameter
+
+    self.Instance = 1024;
+    #    ^ variable.member
+    # <- variable.builtin
+
+    a = self.var.func();
+    #   ^ variable.builtin
+    #        ^ variable.member
+    # <- variable
+
+    b = self.a.b.func();
+    #   ^ variable.builtin
+    #        ^ variable.member
+    #          ^ variable.member
+    # <- variable
+
+    c = Main.a.b.func();
+    #   ^ type
+    #        ^ variable.member
+    #          ^ variable.member
+    # <- variable
+
+    d = main.a.b.func();
+    #   ^ variable
+    #        ^ variable.member
+    #          ^ variable.member
+    # <- variable
+  }
+}
