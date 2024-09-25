@@ -290,7 +290,7 @@ TODO: rework this rules?
 object            = identifier | field_access | method_call ;
 field_access      = object '.' identifier ;
 method_call       = ( field_access | identifier ) argument_list ;
-argument_list     = '(' expression* ')' ;
+argument_list     = '(' expression ( ',' expression )* ')' ;
 
 self.a
 self.a.b
@@ -298,11 +298,25 @@ self.b()
 self.a().b()
 self.a().b().a.b
 
-method_decl       = 'method' identifier method_params method_block ;
+method_decl       = 'function' identifier method_params method_block ;
 method_params     = '(' identifier* ')' ;
 method_block      = '{' statement* '}' ;
 
-assignment        = ( identifier | field_access ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
-statement         = assignment ;
+assignment         = ( field_access | identifier ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
+
+compound_statement = if_statement | while_statement | for_statement ;
+if_statement      = 'if' '(' expression ')' block elif_clause* else_clause? ;
+elif_clause       = 'elif' '(' expression ')' ;
+else_clause       = 'else' block ;
+
+while_statement   = 'while' '(' expression ')' block ;
+for_statement     = 'for' '(' identifier 'in' expression ')' block ;
+
+simple_statement  = ( method_call | return_statement | wait_statement ) ';' ;
+return_statement  = 'return' expression ;
+wait_statement    = 'wait' expression ;
+
+statement          = assignment | compount_statement | simple_statement ;
+block             = '{' statement* '}' ;
 */
 
