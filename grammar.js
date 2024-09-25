@@ -33,6 +33,7 @@ module.exports = grammar({
     $._expression,
     $._primary,
     $._class_member,
+    $._compound_statement,
   ],
   conflicts: $ => [
     [$.method_call, $.argument_list]
@@ -93,11 +94,14 @@ module.exports = grammar({
       ")",
     )),
 
-    statement: $ => choice(
-      $.assignment,
+    _compound_statement: $ => choice(
       $.if_statement,
       $.while_statement,
       $.for_statement,
+    ),
+    statement: $ => choice(
+      $.assignment,
+      $._compound_statement,
       seq($.method_call, ";"),
     ),
     assignment: $ => prec(PREC.ASSIGN, seq(
@@ -207,7 +211,7 @@ module.exports = grammar({
     null_primitive: _ => "null",
     bool_primitive: _ => choice("true", "false"),
     decimal_primitive: _ => DIGITS,
-   decimal_floating_point_primitive: _ => DECIMAL_FLOAT,
+    decimal_floating_point_primitive: _ => DECIMAL_FLOAT,
 
     comment: $ => choice(
       $.line_comment,

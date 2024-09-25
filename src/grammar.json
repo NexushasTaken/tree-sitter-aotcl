@@ -310,13 +310,9 @@
         ]
       }
     },
-    "statement": {
+    "_compound_statement": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "assignment"
-        },
         {
           "type": "SYMBOL",
           "name": "if_statement"
@@ -328,6 +324,19 @@
         {
           "type": "SYMBOL",
           "name": "for_statement"
+        }
+      ]
+    },
+    "statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "assignment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_compound_statement"
         },
         {
           "type": "SEQ",
@@ -1304,7 +1313,8 @@
   "inline": [
     "_expression",
     "_primary",
-    "_class_member"
+    "_class_member",
+    "_compound_statement"
   ],
   "supertypes": []
 }
