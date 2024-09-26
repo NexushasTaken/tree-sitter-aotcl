@@ -1,0 +1,40 @@
+class Empty {}
+class Main {
+  InstanceVariable = "hello";
+  _private_variable = "world";
+
+  null = null;
+  bool = true;
+  int = 3821;
+  float = 3.14;
+  string = "Hello, World";
+
+  # This is line comment
+  /*
+    This is block comment
+  */
+
+  function HelloWorld() {}
+  function HelloWorld(param1) {}
+  function HelloWorld(param1, param2) {}
+  function HelloWorld(param1, param2, param3) {
+    null = null;
+    bool = true;
+    int = 3821;
+    float = 3.14;
+    string = "Hello, World";
+
+    self.string = "Hello, World";
+    Main.string = "Hello, World";
+    self.null = null;
+    self.bool = true;
+    self.int = 3821;
+    self.float = 3.14 + (self.hello().no(self.hello()));
+
+    self.a = 1;
+    self.a.b = 2;
+    self.a().b().a.b = 3;
+    a = self.b();
+    b = self.a().b();
+  }
+}

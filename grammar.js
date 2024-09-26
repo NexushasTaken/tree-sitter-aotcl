@@ -16,8 +16,8 @@ const PREC = {
   MULT: 6,           // *  /
   UNARY: 7,          // -  !
   PARENS: 8,         // (expression)
-  ACCESS: 9,         // member access
-  INVOKE: 10,        // function call
+  MEMBER: 9,         // member access
+  CALL: 10,          // function call
 };
 
 
@@ -85,20 +85,20 @@ module.exports = grammar({
       $.field_access,
       $.procedure_call,
     ),
-    field_access: $ => prec.left(PREC.ACCESS, seq(
+    field_access: $ => prec.left(PREC.MEMBER, seq(
       field("object", $.object),
       ".",
       field("field", $.identifier),
     )),
-    procedure_call: $ => seq(
+    procedure_call: $ => prec.left(PREC.CALL, seq(
       field("procedure", choice($.field_access, $.identifier)),
       field("arguments", $.argument_list),
-    ),
-    argument_list: $ => prec.left(PREC.INVOKE, seq(
+    )),
+    argument_list: $ => seq(
       "(",
       commaSep(repeat($._expression)),
       ")",
-    )),
+    ),
 
     _compound_statement: $ => choice(
       $.if_statement,
@@ -220,7 +220,7 @@ module.exports = grammar({
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),
     string_primitive: _ => seq(
       '"',
-      token.immediate(/[^\\"\n]+/),
+      token.immediate(optional(/[^\\"\n]+/)),
       '"',
     ),
     null_primitive: _ => "null",
@@ -308,4 +308,3 @@ wait_statement    = 'wait' expression ;
 statement         = assignment | compount_statement | simple_statement ;
 block             = '{' statement* '}' ;
 */
-

@@ -16,6 +16,12 @@ class Main {
     self.field = CustomClass.call();
     #                        ^ function.method.call
     self.field = CustomClass.a.b.call();
-    #                        ^ variable.member
+    #                            ^ function.method.call
+    self.field("" + Convert.ToString(a) + "" + Convert.ToString(b));
+    #                        ^ function.method.call
+    #                                                  ^ function.method.call
+    self.field("" + Convert.ToString() + "" + Convert.ToString());
+    #                       ^ function.method.call
+    #                                                 ^ function.method.call
   }
 }
