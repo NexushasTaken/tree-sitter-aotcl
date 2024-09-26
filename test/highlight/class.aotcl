@@ -7,12 +7,12 @@ class Components {}
 class CustomClass {}
 # <- keyword.type
 #     ^ type
-extension CustomClass {}
+extension CustomExtension {}
 # <- keyword.type
 #         ^ type
-cutscene CustomClass {}
+cutscene CustomCutscene {}
 # <- keyword.type
 #        ^ type
-component CustomClass {}
+component CustomComponent {}
 # <- keyword.type
 #         ^ type

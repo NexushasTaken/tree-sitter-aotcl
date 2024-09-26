@@ -55,7 +55,8 @@
       "injection-regex": "^aotcl$",
       "highlights": "queries/highlights.scm",
       "locals": "queries/locals.scm",
-      "injections": "queries/highlights.scm"
+      "injections": "queries/highlights.scm",
+      "tags": "queries/tags.scm"
     }
   ]
 }

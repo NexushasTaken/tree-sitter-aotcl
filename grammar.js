@@ -38,25 +38,28 @@ module.exports = grammar({
     $._class_member,
     $._statement,
   ],
-  conflicts: $ => [
-    [$.procedure_call, $.argument_list]
-  ],
 
   word: $ => $.identifier,
 
   rules: {
-    source_file: $ => repeat($._top_level),
-
-    _top_level: $ => choice($.class_declaration),
+    source_file: $ => repeat(choice(
+      $.class_specifier,
+      $.extension_specifier,
+      $.cutscene_specifier,
+      $.component_specifier,
+    )),
 
     identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    class_declaration: $ => seq(
-      // TODO: move "extension", "cutscene" and "component" to another rule?
-      choice("class", "extension", "cutscene", "component"),
+    _class_declaration: $ => seq(
       field("name", $.identifier),
       field("body", $.class_block),
     ),
+    class_specifier: $ => seq("class", $._class_declaration),
+    extension_specifier: $ => seq("extension", $._class_declaration),
+    cutscene_specifier: $ => seq("cutscene", $._class_declaration),
+    component_specifier: $ => seq("component", $._class_declaration),
+
     class_block: $ => seq(
       "{",
       repeat($._class_member),
@@ -263,7 +266,16 @@ floating_point    = DIGITS '.' DIGITS ;
 
 identifier        = /[a-zA-Z_][a-zA-Z0-9_]* / ;
 
-class_declaration = 'class' identifier class_block ;
+source_file         = class_specifier
+                    | extension_specifier
+                    | cutscene_specifier
+                    | component_specifier ;
+class_specifier     = 'class' class_declaration ;
+extension_specifier = 'class' class_declaration ;
+cutscene_specifier  = 'class' class_declaration ;
+component_specifier = 'class' class_declaration ;
+
+class_declaration   = identifier class_block ;
 class_block       = '{' class_member* '}' ;
 class_member      = assignment | procedure_declaration ;
 

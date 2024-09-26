@@ -262,7 +262,59 @@
     }
   },
   {
-    "type": "class_declaration",
+    "type": "class_specifier",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "component_specifier",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cutscene_specifier",
     "named": true,
     "fields": {
       "body": {
@@ -350,6 +402,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "extension_specifier",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -648,7 +726,19 @@
       "required": false,
       "types": [
         {
-          "type": "class_declaration",
+          "type": "class_specifier",
+          "named": true
+        },
+        {
+          "type": "component_specifier",
+          "named": true
+        },
+        {
+          "type": "cutscene_specifier",
+          "named": true
+        },
+        {
+          "type": "extension_specifier",
           "named": true
         }
       ]
