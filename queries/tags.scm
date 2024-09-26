@@ -7,6 +7,11 @@
 (component_specifier
   name: (identifier) @name) @definition.component
 
+(instance_variable
+  left: (identifier) @name (#match? @name "^[a-zA-Z]")) @definition.variable
+(instance_variable
+  left: (identifier) @name (#match? @name "^[_]")) @definition.private_variable
+
 (procedure_declaration
   name: (identifier) @name) @definition.procedure
 
