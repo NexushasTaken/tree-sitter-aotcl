@@ -20,7 +20,6 @@ const PREC = {
   CALL: 10,          // function call
 };
 
-
 module.exports = grammar({
   name: "aotcl",
 
@@ -256,68 +255,3 @@ function commaSep1(rule) {
 function commaSep(rule) {
   return optional(commaSep1(rule));
 }
-
-/*
-string_primitive  = STRING ;
-null_primitive    = 'null' ;
-bool_primitive    = 'true' | 'false' ;
-decimal_primitive = DIGITS ;
-floating_point    = DIGITS '.' DIGITS ;
-
-identifier        = /[a-zA-Z_][a-zA-Z0-9_]* / ;
-
-source_file         = class_specifier
-                    | extension_specifier
-                    | cutscene_specifier
-                    | component_specifier ;
-class_specifier     = 'class' class_declaration ;
-extension_specifier = 'class' class_declaration ;
-cutscene_specifier  = 'class' class_declaration ;
-component_specifier = 'class' class_declaration ;
-
-class_declaration   = identifier class_block ;
-class_block       = '{' class_member* '}' ;
-class_member      = assignment | procedure_declaration ;
-
-expression        = binary | unary | primary ;
-binary            = expression ( '!=' | '==' | '>' | '>=' | '<' | '<=' | '-' | '+' | '/' | '*' ) expression;
-unary             = ( '!' | '-' ) expression ;
-
-primary           = string_primitive
-                  | null_primitive
-                  | bool_primitive
-                  | decimal_primitive
-                  | floating_point
-                  | identifier
-                  | field_access
-                  | procedure_call
-                  | paren_expr ;
-paren_expr        = '(' expression ')' ;
-
-TODO: rework these rules?
-object            = 'self' | identifier | field_access | procedure_call ;
-field_access      = object '.' identifier ;
-procedure_call    = ( field_access | identifier ) argument_list ;
-argument_list     = '(' expression ( ',' expression )* ')' ;
-
-procedure_decl    = 'function' identifier procedure_params procedure_block ;
-procedure_params  = '(' identifier* ')' ;
-procedure_block   = '{' statement* '}' ;
-
-assignment        = ( field_access | identifier ) ( '=' | '+=' | '-=' | '*=' | '/=' ) expression ';' ;
-
-compound_statement = if_statement | while_statement | for_statement ;
-if_statement      = 'if' paren_expr block elif_clause* else_clause? ;
-elif_clause       = 'elif' paren_expr ;
-else_clause       = 'else' block ;
-
-while_statement   = 'while' paren_expr block ;
-for_statement     = 'for' '(' identifier 'in' expression ')' block ;
-
-simple_statement  = ( procedure_call | return_statement | wait_statement ) ';' ;
-return_statement  = 'return' expression ;
-wait_statement    = 'wait' expression ;
-
-statement         = assignment | compount_statement | simple_statement ;
-block             = '{' statement* '}' ;
-*/
