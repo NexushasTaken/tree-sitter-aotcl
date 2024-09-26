@@ -283,7 +283,7 @@ primary           = string_primitive
 paren_expr        = '(' expression ')' ;
 
 TODO: rework these rules?
-object            = identifier | field_access | procedure_call ;
+object            = 'self' | identifier | field_access | procedure_call ;
 field_access      = object '.' identifier ;
 procedure_call    = ( field_access | identifier ) argument_list ;
 argument_list     = '(' expression ( ',' expression )* ')' ;
