@@ -1,5 +1,11 @@
-(class_declaration
+(class_specifier
   name: (identifier) @name) @definition.class
+(extension_specifier
+  name: (identifier) @name) @definition.extension
+(cutscene_specifier
+  name: (identifier) @name) @definition.cutscene
+(component_specifier
+  name: (identifier) @name) @definition.component
 
 (procedure_declaration
   name: (identifier) @name) @definition.procedure
