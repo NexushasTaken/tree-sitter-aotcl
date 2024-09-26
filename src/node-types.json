@@ -371,7 +371,19 @@
         "required": true,
         "types": [
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "object",
+            "named": true
+          },
+          {
+            "type": "procedure_call",
+            "named": true
+          },
+          {
+            "type": "self",
             "named": true
           }
         ]
@@ -498,29 +510,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "object",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "field_access",
-          "named": true
-        },
-        {
-          "type": "object",
-          "named": true
-        },
-        {
-          "type": "procedure_call",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -922,12 +911,16 @@
     "named": true
   },
   {
+    "type": "object",
+    "named": true
+  },
+  {
     "type": "return",
     "named": false
   },
   {
     "type": "self",
-    "named": false
+    "named": true
   },
   {
     "type": "true",

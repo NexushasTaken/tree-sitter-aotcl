@@ -41,7 +41,7 @@
   (block_comment)
 ] @comment
 
-"self" @variable.builtin
+(self) @variable.builtin
 "function" @keyword.function
 "return" @keyword.return
 

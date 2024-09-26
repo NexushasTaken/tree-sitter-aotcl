@@ -195,13 +195,13 @@
         }
       ]
     },
-    "object": {
+    "self": {
+      "type": "STRING",
+      "value": "self"
+    },
+    "_object": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "STRING",
-          "value": "self"
-        },
         {
           "type": "ALIAS",
           "content": {
@@ -210,6 +210,10 @@
           },
           "named": true,
           "value": "object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "self"
         },
         {
           "type": "SYMBOL",
@@ -232,7 +236,7 @@
             "name": "object",
             "content": {
               "type": "SYMBOL",
-              "name": "object"
+              "name": "_object"
             }
           },
           {

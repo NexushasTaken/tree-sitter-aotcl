@@ -79,14 +79,15 @@ module.exports = grammar({
       ")",
     ),
 
-    object: $ => choice(
-      "self",
+    self: _ => "self",
+    _object: $ => choice(
       alias($.identifier, $.object),
+      $.self,
       $.field_access,
       $.procedure_call,
     ),
     field_access: $ => prec.left(PREC.MEMBER, seq(
-      field("object", $.object),
+      field("object", $._object),
       ".",
       field("field", $.identifier),
     )),
