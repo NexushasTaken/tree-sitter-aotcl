@@ -11,9 +11,9 @@ source_file         = class_specifier
                     | cutscene_specifier
                     | component_specifier ;
 class_specifier     = 'class' class_declaration ;
-extension_specifier = 'class' class_declaration ;
-cutscene_specifier  = 'class' class_declaration ;
-component_specifier = 'class' class_declaration ;
+extension_specifier = 'extension' class_declaration ;
+cutscene_specifier  = 'cutscene' class_declaration ;
+component_specifier = 'component' class_declaration ;
 
 class_declaration   = identifier class_block ;
 class_block       = '{' class_member* '}' ;
