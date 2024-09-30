@@ -1,5 +1,13 @@
-(class_declaration
-  name: (identifier) @type)
+[
+  (class_specifier
+    name: (identifier))
+  (extension_specifier
+    name: (identifier))
+  (cutscene_specifier
+    name: (identifier))
+  (component_specifier
+    name: (identifier))
+] @type
 
 (instance_variable
   left: (identifier) @variable.member)
