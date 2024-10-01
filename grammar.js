@@ -230,7 +230,7 @@ module.exports = grammar({
       $.line_comment,
       $.block_comment,
     ),
-    line_comment: $ => token(prec(PREC.COMMENT, seq("#", /(\\+(.|\r?\n)|[^\\\n])*/))),
+    line_comment: $ => token(prec(PREC.COMMENT, seq("#", /.*/))),
     block_comment: $ => token(prec(PREC.COMMENT, seq(
       "/*",
       /[^*]*\*+([^/*][^*]*\*+)*/,
