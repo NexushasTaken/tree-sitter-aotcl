@@ -31,12 +31,12 @@ primary           = string_primitive
                   | identifier
                   | field_access
                   | procedure_call
+                  | 'self'
                   | paren_expr ;
 paren_expr        = '(' expression ')' ;
 
 TODO: rework these rules?
-object            = 'self' | identifier | field_access | procedure_call ;
-field_access      = object '.' identifier ;
+field_access      = primary '.' identifier ;
 procedure_call    = ( field_access | identifier ) argument_list ;
 argument_list     = '(' expression ( ',' expression )* ')' ;
 

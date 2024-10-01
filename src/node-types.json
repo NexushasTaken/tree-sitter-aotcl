@@ -36,6 +36,10 @@
         "named": true
       },
       {
+        "type": "self",
+        "named": true
+      },
+      {
         "type": "string_primitive",
         "named": true
       }
@@ -449,19 +453,7 @@
         "required": true,
         "types": [
           {
-            "type": "field_access",
-            "named": true
-          },
-          {
-            "type": "object",
-            "named": true
-          },
-          {
-            "type": "procedure_call",
-            "named": true
-          },
-          {
-            "type": "self",
+            "type": "_primary",
             "named": true
           }
         ]
@@ -998,10 +990,6 @@
   },
   {
     "type": "null_primitive",
-    "named": true
-  },
-  {
-    "type": "object",
     "named": true
   },
   {

@@ -82,14 +82,8 @@ module.exports = grammar({
     ),
 
     self: _ => "self",
-    _object: $ => choice(
-      alias($.identifier, $.object),
-      $.self,
-      $.field_access,
-      $.procedure_call,
-    ),
     field_access: $ => prec.left(PREC.MEMBER, seq(
-      field("object", $._object),
+      field("object", $._primary),
       ".",
       field("field", $.identifier),
     )),
@@ -153,7 +147,7 @@ module.exports = grammar({
       "(",
       field("left", $.identifier),
       "in",
-      field("right", $._expression, $.expression),
+      field("right", $._expression),
       ")",
       field("body", $.block),
     ),
@@ -218,6 +212,7 @@ module.exports = grammar({
       $.identifier,
       $.field_access,
       $.procedure_call,
+      $.self,
       $.parenthesized_expression,
     ),
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),

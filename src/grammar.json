@@ -238,32 +238,6 @@
       "type": "STRING",
       "value": "self"
     },
-    "_object": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "object"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "self"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "field_access"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "procedure_call"
-        }
-      ]
-    },
     "field_access": {
       "type": "PREC_LEFT",
       "value": 9,
@@ -275,7 +249,7 @@
             "name": "object",
             "content": {
               "type": "SYMBOL",
-              "name": "_object"
+              "name": "_primary"
             }
           },
           {
@@ -1242,6 +1216,10 @@
         {
           "type": "SYMBOL",
           "name": "procedure_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "self"
         },
         {
           "type": "SYMBOL",

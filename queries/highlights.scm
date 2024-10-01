@@ -16,15 +16,20 @@
   left: (identifier) @variable)
 
 ; field_access
-(field_access
-  object: (object) @type)
-  (#match? @type "^[A-Z]")
-(field_access
-  object: (object) @variable
-  (#match? @variable "^[a-z]"))
+;(field_access
+;  object: (object) @type)
+;  (#match? @type "^[A-Z]")
+;(field_access
+;  object: (object) @variable
+;  (#match? @variable "^[a-z]"))
+
 (field_access
   field: (identifier) @variable.member)
 
+; TODO: Is there another way?
+(field_access
+  object: (identifier) @variable
+  (#not-eq? @variable "self"))
 
 ; procedure
 (procedure_call
@@ -35,7 +40,6 @@
 (procedure_declaration
   name: (identifier) @function.method)
 (parameters (identifier) @variable.parameter)
-
 
 ; primitives
 (string_primitive) @string
