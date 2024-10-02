@@ -29,11 +29,15 @@ void tree_sitter_aotcl_external_scanner_deserialize(
 
 bool tree_sitter_aotcl_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[STRING_CONTENT]) {
-        while (lexer->lookahead != '"') {
+        while (lexer->lookahead != '"' && !lexer->eof(lexer)) {
             lexer->advance(lexer, false);
         }
-        lexer->result_symbol = STRING_CONTENT;
-        return true;
+
+        if (lexer->lookahead == '"') {
+            lexer->result_symbol = STRING_CONTENT;
+            lexer->advance(lexer, true);
+            return true;
+        }
     }
     return false;
 }
