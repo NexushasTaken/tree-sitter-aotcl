@@ -1,7 +1,4 @@
+# this is a line comment
 class Main {
-  function OnGameStart() {
-    self.field("" + Convert.ToString(a) + "" + Convert.ToString(b));
-    #                       ^ function.method.call
-    #                                                  ^ function.method.call
-  }
+  var = "This is a string";
 }

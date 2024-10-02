@@ -226,16 +226,12 @@ module.exports = grammar({
     decimal_primitive: _ => DIGITS,
     decimal_floating_point_primitive: _ => DECIMAL_FLOAT,
 
-    comment: $ => choice(
-      $.line_comment,
-      $.block_comment,
-    ),
-    line_comment: $ => token(prec(PREC.COMMENT, seq("#", /.*/))),
-    block_comment: $ => token(prec(PREC.COMMENT, seq(
+    line_comment: $ => token(seq("#", /.*/)),
+    block_comment: $ => token(seq(
       "/*",
       /[^*]*\*+([^/*][^*]*\*+)*/,
       "/",
-    ))),
+    )),
   }
 });
 
