@@ -3,7 +3,7 @@ class Main {
   InstanceVariable = "hello";
   _private_variable = "world";
 
-  null = null;
+  null_value = null;
   bool = true;
   int = 3821;
   float = 3.14;
@@ -18,7 +18,7 @@ class Main {
   function HelloWorld(param1) {}
   function HelloWorld(param1, param2) {}
   function HelloWorld(param1, param2, param3) {
-    null = null;
+    null_value = null;
     bool = true;
     int = 3821;
     float = 3.14;
@@ -26,7 +26,7 @@ class Main {
 
     self.string = "Hello, World";
     Main.string = "Hello, World";
-    self.null = null;
+    self.null_value = null;
     self.bool = true;
     self.int = 3821;
     self.float = 3.14 + (self.hello().no(self.hello()));

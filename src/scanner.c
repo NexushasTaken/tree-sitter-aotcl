@@ -34,8 +34,8 @@ bool tree_sitter_aotcl_external_scanner_scan(void *payload, TSLexer *lexer, cons
         }
 
         if (lexer->lookahead == '"') {
+            lexer->mark_end(lexer);
             lexer->result_symbol = STRING_CONTENT;
-            lexer->advance(lexer, true);
             return true;
         }
     }
