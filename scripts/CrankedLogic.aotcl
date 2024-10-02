@@ -1,5 +1,5 @@
 class Main
-{   
+{
     Description = "Survive as long as possible under a time limit. Killing titans adds time. Created by p2.";
     MaxTitans = 15;
     TitanSpawnEvery = 3.0;
@@ -101,11 +101,11 @@ class Main
         }
         if (self.StartTimeLimit <= self._CrankedTimeDangerZone)
         {
-            CrankedTimeDisplay = "Cranked Time: <color=#ff0000>" + String.FormatFloat(self.StartTimeLimit, 2) + "</color>"; 
+            CrankedTimeDisplay = "Cranked Time: <color=#ff0000>" + String.FormatFloat(self.StartTimeLimit, 2) + "</color>";
         }
         else
         {
-            CrankedTimeDisplay = "Cranked Time: " + Convert.ToString(Convert.ToInt(self.StartTimeLimit)); 
+            CrankedTimeDisplay = "Cranked Time: " + Convert.ToString(Convert.ToInt(self.StartTimeLimit));
         }
         if (self.StartTimeLimit <= 0)
         {

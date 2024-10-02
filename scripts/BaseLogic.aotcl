@@ -184,7 +184,7 @@ component Floater
                 }
             }
         }
-    
+
     }
 
 }
@@ -361,10 +361,10 @@ component WaterPhysics
             return;
         }
         velocity = self.GetVelocity(other);
-        position = other.Position;      
+        position = other.Position;
 
         # Convert velocity to euler angle on just the y axis
-        angle = Vector3.Angle(Vector3(0, 0, 1), velocity.Normalized);  
+        angle = Vector3.Angle(Vector3(0, 0, 1), velocity.Normalized);
 
         effectSize = velocity.Magnitude / 100;
         effectSize = Math.Clamp(effectSize, 2, 7);
@@ -591,7 +591,7 @@ component VelocityZone
             {
                 mapDir = self.MapObject.Right;
             }
-            
+
             mapDir = mapDir.Scale(self.Speed);
             appliedForce = appliedForce + mapDir;
         }
@@ -758,7 +758,7 @@ component DestructibleTrigger
     HasDestroyEffect = false;
     DestroyEffect = "";
     DestroyEffectScale = 1.0;
-    
+
     # Who can destroy this object
     AttacksThatCanDestroy = "";
     AttacksThatCanDestroyTooltip = "Slash (/) separated list of attack names leave empty to support all attacks.";
@@ -791,7 +791,7 @@ component DestructibleTrigger
             self.SetState(self._targets, true);
             self.SetState(self._replacements, false);
         }
-        
+
 
         # Parse out attacks into list, parse out teams into list
         if (self.AttacksThatCanDestroy != "")
@@ -924,7 +924,7 @@ component DestructibleTrigger
         self._isHostDestroyed = true;
         self.NetworkSync(null);
     }
-    
+
     function SignalRecover()
     {
         self._health = self.Health;
@@ -985,14 +985,14 @@ component DestructibleTrigger
 component CustomPhysicsMaterial
 {
     IncludeChildren = false;
-    
+
     StaticFriction = 0.6;
     DynamicFriction = 0.6;
     Bounciness = 0.0;
-    
+
     FrictionCombine = "Average";
     FrictionCombineDropbox = "Average, Minimum, Multiply, Maximum";
-    
+
     BounceCombine = "Average";
     BounceCombineDropbox = "Average, Minimum, Multiply, Maximum";
 
@@ -1001,7 +1001,7 @@ component CustomPhysicsMaterial
         self.StaticFriction = Math.Max(0.0, self.StaticFriction);
         self.DynamicFriction = Math.Max(0.0, self.DynamicFriction);
         self.Bounciness = Math.Clamp(self.Bounciness, 0.0, 1.0);
-        
+
         self.MapObject.AddBuiltinComponent("CustomPhysicsMaterial", self.IncludeChildren);
         self.SetStaticFriction(self.StaticFriction);
         self.SetDynamicFriction(self.DynamicFriction);
@@ -1009,27 +1009,27 @@ component CustomPhysicsMaterial
         self.SetFrictionCombine(self.FrictionCombine);
         self.SetBounceCombine(self.BounceCombine);
     }
-    
+
     function SetStaticFriction(value)
     {
         self.MapObject.UpdateBuiltinComponent("CustomPhysicsMaterial", "StaticFriction", value);
     }
-    
+
     function SetDynamicFriction(value)
     {
         self.MapObject.UpdateBuiltinComponent("CustomPhysicsMaterial", "DynamicFriction", value);
     }
-        
+
     function SetBounciness(value)
     {
         self.MapObject.UpdateBuiltinComponent("CustomPhysicsMaterial", "Bounciness", value);
     }
-    
+
     function SetFrictionCombine(value)
     {
         self.MapObject.UpdateBuiltinComponent("CustomPhysicsMaterial", "FrictionCombine", value);
     }
-        
+
     function SetBounceCombine(value)
     {
         self.MapObject.UpdateBuiltinComponent("CustomPhysicsMaterial", "BounceCombine", value);
@@ -1063,7 +1063,7 @@ component CaptureZone
     UIVisibilityRangeTooltip = "UI will only be visible when the player is within this range of the capture zone";
     CurrentOwnerTooltip = "Initial owner of the capture zone";
     CurrentOwnerDropbox = "Neutral, Human, Titan, Shifter, Blue, Red";
-    
+
     # States: Captured, Capturing, Contested
     _state = "Captured";
     _lastState = "Captured";
@@ -1086,12 +1086,12 @@ component CaptureZone
 
     # UI state
     _isViewing = false;
-    
+
     # Supply Station
     _supplyStation = null;
     _hasSupplyStation = false;
     _isSupplyStationActive = false;
-    
+
     # Callback Receiver
     _lastOwner = "null"; # Use to avoid calling "OnCaptured" multiple times
     _callbackReceiver = null;
@@ -1116,14 +1116,14 @@ component CaptureZone
             id = Convert.ToInt(self.SupplyStationID);
             self._supplyStation = Map.FindMapObjectByID(id);
             self._hasSupplyStation = self._supplyStation != null;
-            
+
             if (self._hasSupplyStation)
             {
                 self._supplyStation.Active = false;
             }
         }
     }
-    
+
     /*
      * Callback receiver can be an instance of any class
      * that have the following functions:
@@ -1185,7 +1185,7 @@ component CaptureZone
         if (self._state == "Captured")
 		{
             color = self.GetTeamColor(self.CurrentOwner);
-            
+
 		}
 		if (self._state == "Capturing" || (self._state == "Contested" && self._currentCapturer != "null"))
 		{
@@ -1313,7 +1313,7 @@ component CaptureZone
                 {
                     self._captureProgress = self._captureProgress - 1.0;
                 }
-                
+
                 if (self._captureProgress <= 0.0)
                 {
                     self._state = "Captured";
@@ -1412,7 +1412,7 @@ component CaptureZone
 		{
 			return;
 		}
-		
+
 		if (self._lastState != self._state)
 		{
 		    if (self._hasCallbackReceiver)
@@ -1436,7 +1436,7 @@ component CaptureZone
 		    }
             self._lastState = self._state;
 		}
-		
+
 		if (self._state == "Captured")
         {
             if (self.CurrentOwner == "Human")
@@ -1537,7 +1537,7 @@ component CaptureZone
         {
             team = player.Type;
         }
-        
+
         if (self._teamsInZone.Contains(team) == false)
         {
             self._teamsInZone.Set(team, List());
@@ -2204,7 +2204,7 @@ component Wagon
         self.NetworkView.SendMessageOthers("s" + Convert.ToString(self._supplyTimesLeft));
     }
 
-    function OnNetworkTransfer(oldOwner, newOwner) 
+    function OnNetworkTransfer(oldOwner, newOwner)
     {
         if (newOwner == Network.MasterClient && Network.IsMasterClient)
         {
@@ -2285,7 +2285,7 @@ component Wagon
 
             localVelocity = self.MapObject.Transform.InverseTransformDirection(self._rigidbody.GetVelocity());
             angularVelocity = self._rigidbody.GetAngularVelocity();
-            
+
             v_x = localVelocity.Z;
             omega = angularVelocity.Y;
 
@@ -2384,7 +2384,7 @@ component Wagon
             {
                 if (self._collidingDrive && !self._inUse)
                 {
-                    if (self.NetworkView.Owner == Network.MyPlayer) 
+                    if (self.NetworkView.Owner == Network.MyPlayer)
                     {
                         self._inUse = true;
                         self._collidingHuman.MountTransform(self._horse, Vector3(0, 1.95, 0), Vector3.Zero);
@@ -2481,7 +2481,7 @@ component Cannon
         }
     }
 
-    function OnNetworkTransfer(oldOwner, newOwner) 
+    function OnNetworkTransfer(oldOwner, newOwner)
     {
         if (newOwner == Network.MasterClient && Network.IsMasterClient)
         {
@@ -2572,9 +2572,9 @@ component Cannon
         }
         if (!self._inUse && self._collidingHuman != null)
         {
-            if (Input.GetKeyDown("Interaction/Interact")) 
+            if (Input.GetKeyDown("Interaction/Interact"))
             {
-                if (self.NetworkView.Owner == Network.MyPlayer) 
+                if (self.NetworkView.Owner == Network.MyPlayer)
                 {
                     self._inUse = true;
                     self._collidingHuman.MountTransform(self._humanMount, Vector3.Zero, Vector3.Zero);
@@ -2600,7 +2600,7 @@ component Cannon
         if (self._human != null)
         {
             Game.SpawnEffect("Boom2", self._barrelEnd.Position, self.MapObject.Rotation, 0.5);
-            Game.SpawnProjectileWithOwner("CannonBall", self._barrelEnd.Position, Vector3.Zero, self._barrel.Forward.Normalized * self._ballSpeed, 
+            Game.SpawnProjectileWithOwner("CannonBall", self._barrelEnd.Position, Vector3.Zero, self._barrel.Forward.Normalized * self._ballSpeed,
             Vector3(0, -20, 0), 2.0, self._human);
         }
     }
@@ -2657,13 +2657,13 @@ component Animal
     }
 
     function OnFrame()
-    {  
+    {
         self._stateTimeLeft = self._stateTimeLeft - Time.FrameTime;
         if (self._state == "Wander")
         {
             if (Vector3.Distance(self._originalPosition, self._transform.Position) > self.WanderRadius)
             {
-                self.Idle();            
+                self.Idle();
             }
             else
             {
@@ -3092,7 +3092,7 @@ component SignalMover
     RepeatTimes = 0;
     Infinite = true;
     Interpolate = false;
-    
+
     Description = "Moves the object. Activate auto-disables after operation is done, re-send signal to restart. Use SignalSender component if Modular use is necessary.";
     ActivateTooltip = "Enable to start operation. Counts as 1 repeat time.";
     ReverseTooltip = "Returns to original position after Target movement.";
@@ -3128,7 +3128,7 @@ component SignalMover
         self._TimesPerSecond = self.TimesPerSecond;
     }
     function OnTick()
-    {   
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3236,7 +3236,7 @@ component SignalMover
     return Easing;
     }
     function Calculate(XTime)
-    {    
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3308,7 +3308,7 @@ component SignalArcMover
     RepeatTimes = 0;
     Infinite = true;
     Interpolate = false;
-    
+
     Description = "Moves the object in an arc. Activate auto-disables after operation is done, re-send signal to restart. Use SignalSender component if Modular use is necessary.";
     ActivateTooltip = "Enable to start operation. Counts as 1 repeat time.";
     ReverseTooltip = "Returns to original position after Target movement.";
@@ -3352,7 +3352,7 @@ component SignalArcMover
         self._Pivot = self.PivotOffset;
     }
     function OnTick()
-    {   
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3484,7 +3484,7 @@ component SignalArcMover
     return Easing;
     }
     function Calculate(XTime)
-    {    
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3555,7 +3555,7 @@ component SignalRotator
     RepeatTimes = 0;
     Infinite = true;
     Interpolate = false;
-    
+
     Description = "Rotates the object. Activate auto-disables after operation is done, re-send signal to restart. Use SignalSender component if Modular use is necessary.";
     ActivateTooltip = "Enable to start operation. Counts as 1 repeat time.";
     ReverseTooltip = "Returns to original rotation after normal rotation.";
@@ -3591,7 +3591,7 @@ component SignalRotator
         self._TimesPerSecond = self.TimesPerSecond;
     }
     function OnTick()
-    {   
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3698,7 +3698,7 @@ component SignalRotator
     return Easing;
     }
     function Calculate(XTime)
-    {   
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3771,7 +3771,7 @@ component SignalScaler
     RepeatTimes = 0;
     Infinite = true;
     Interpolate = false;
-    
+
     Description = "Scales the object. Activate auto-disables after operation is done, re-send signal to restart. Use SignalSender component if Modular use is necessary.";
     ActivateTooltip = "Enable to start operation. Counts as 1 repeat time.";
     ReverseTooltip = "Returns to original scale after target Scaling.";
@@ -3807,7 +3807,7 @@ component SignalScaler
         self._TimesPerSecond = self.TimesPerSecond;
     }
     function OnTick()
-    {   
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3918,7 +3918,7 @@ component SignalScaler
     return Easing;
     }
     function Calculate(XTime)
-    {    
+    {
         if (!Network.IsMasterClient)
         {
             return;
@@ -3998,7 +3998,7 @@ component SignalSender
     ReceiverObjectIDsTooltip = "ID  for the receiving objects, use space to separate multiple receivers.";
     SignalTriggerTooltip = "How the signal is activated. (OnGetHit only works with cubes and Interact is not included for 'Any')";
     ComponentNameTooltip = "What component to send the signal to";
-    SetXYZTooltip = "Only modifies original values if set to anything but (0, 0, 0)"
+    SetXYZTooltip = "Only modifies original values if set to anything but (0, 0, 0)";
     SetTimesPerSecondTooltip = "Modify the speed value of target object, is ignored if value is 0";
     UsesTooltip = "How many times this signal can be used";
     StopOnConstrainsTooltip = "Receiver object will stop at start and end position. Use for things like doors.";
@@ -4152,7 +4152,7 @@ component SignalSender
                     Component.Activate = true;
                     Component._RepeatTimes = self.RepeatTimes;
                 }
-                if (Component.Activate)  
+                if (Component.Activate)
                 {
                     if (self.SetXYZ != Vector3(0, 0, 0))
                     {
@@ -4202,7 +4202,7 @@ component SignalSender
                     Component.Activate = true;
                     Component._RepeatTimes = self.RepeatTimes;
                 }
-                if (Component.Activate)  
+                if (Component.Activate)
                 {
                     if (self.SetXYZ != Vector3(0, 0, 0))
                     {
@@ -4252,7 +4252,7 @@ component SignalSender
                     Component.Activate = true;
                     Component._RepeatTimes = self.RepeatTimes;
                 }
-                if (Component.Activate)  
+                if (Component.Activate)
                 {
                     if (self.SetXYZ != Vector3(0, 0, 0))
                     {
@@ -4267,7 +4267,7 @@ component SignalSender
                         Component._TimesPerSecond = self.SetTimesPerSecond;
                     }
                     Receiver.Active = true;
-                }   
+                }
             }
             elif (self.ComponentName == "SignalScaler")
             {
@@ -4302,7 +4302,7 @@ component SignalSender
                     Component.Activate = true;
                     Component._RepeatTimes = self.RepeatTimes;
                 }
-                if (Component.Activate)  
+                if (Component.Activate)
                 {
                     if (self.SetXYZ != Vector3(0, 0, 0))
                     {
@@ -4320,7 +4320,7 @@ component SignalSender
                 }
             }
         }
-    }  
+    }
 }
 
 # general

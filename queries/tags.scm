@@ -1,11 +1,5 @@
-(class_specifier
-  name: (identifier) @name) @definition.class
-(extension_specifier
-  name: (identifier) @name) @definition.extension
-(cutscene_specifier
-  name: (identifier) @name) @definition.cutscene
-(component_specifier
-  name: (identifier) @name) @definition.component
+(type_declaration
+  name: (identifier) @name) @definition.type
 
 (instance_variable
   left: (identifier) @name (#match? @name "^[a-zA-Z]")) @definition.variable

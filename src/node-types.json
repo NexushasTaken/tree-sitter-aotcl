@@ -247,103 +247,6 @@
     "fields": {}
   },
   {
-    "type": "class_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "instance_variable",
-          "named": true
-        },
-        {
-          "type": "procedure_declaration",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "class_specifier",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_block",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "component_specifier",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_block",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "cutscene_specifier",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_block",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "elif_clause",
     "named": true,
     "fields": {
@@ -406,32 +309,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "extension_specifier",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_block",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -718,19 +595,7 @@
       "required": false,
       "types": [
         {
-          "type": "class_specifier",
-          "named": true
-        },
-        {
-          "type": "component_specifier",
-          "named": true
-        },
-        {
-          "type": "cutscene_specifier",
-          "named": true
-        },
-        {
-          "type": "extension_specifier",
+          "type": "type_declaration",
           "named": true
         }
       ]
@@ -740,6 +605,51 @@
     "type": "string_primitive",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "type_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "instance_variable",
+          "named": true
+        },
+        {
+          "type": "procedure_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "unary",

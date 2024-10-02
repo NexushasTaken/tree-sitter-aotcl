@@ -5,34 +5,38 @@
     "source_file": {
       "type": "REPEAT",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "class_specifier"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "extension_specifier"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "cutscene_specifier"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "component_specifier"
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "type_declaration"
       }
     },
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
-    "_class_declaration": {
+    "type_declaration": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "class"
+            },
+            {
+              "type": "STRING",
+              "value": "extension"
+            },
+            {
+              "type": "STRING",
+              "value": "cutscene"
+            },
+            {
+              "type": "STRING",
+              "value": "component"
+            }
+          ]
+        },
         {
           "type": "FIELD",
           "name": "name",
@@ -46,64 +50,12 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "class_block"
+            "name": "type_block"
           }
         }
       ]
     },
-    "class_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "class"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_class_declaration"
-        }
-      ]
-    },
-    "extension_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "extension"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_class_declaration"
-        }
-      ]
-    },
-    "cutscene_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "cutscene"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_class_declaration"
-        }
-      ]
-    },
-    "component_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "component"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_class_declaration"
-        }
-      ]
-    },
-    "class_block": {
+    "type_block": {
       "type": "SEQ",
       "members": [
         {
@@ -114,7 +66,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_class_member"
+            "name": "_type_member"
           }
         },
         {
@@ -123,7 +75,7 @@
         }
       ]
     },
-    "_class_member": {
+    "_type_member": {
       "type": "CHOICE",
       "members": [
         {
@@ -1358,7 +1310,7 @@
   "inline": [
     "_expression",
     "_primary",
-    "_class_member",
+    "_type_member",
     "_statement"
   ],
   "supertypes": [

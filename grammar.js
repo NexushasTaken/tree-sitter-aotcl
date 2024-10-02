@@ -37,37 +37,29 @@ module.exports = grammar({
   inline: $ => [
     $._expression,
     $._primary,
-    $._class_member,
+    $._type_member,
     $._statement,
   ],
 
   word: $ => $.identifier,
 
   rules: {
-    source_file: $ => repeat(choice(
-      $.class_specifier,
-      $.extension_specifier,
-      $.cutscene_specifier,
-      $.component_specifier,
-    )),
+    source_file: $ => repeat($.type_declaration),
 
     identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    _class_declaration: $ => seq(
+    type_declaration: $ => seq(
+      choice("class", "extension", "cutscene", "component"),
       field("name", $.identifier),
-      field("body", $.class_block),
+      field("body", $.type_block),
     ),
-    class_specifier: $ => seq("class", $._class_declaration),
-    extension_specifier: $ => seq("extension", $._class_declaration),
-    cutscene_specifier: $ => seq("cutscene", $._class_declaration),
-    component_specifier: $ => seq("component", $._class_declaration),
 
-    class_block: $ => seq(
+    type_block: $ => seq(
       "{",
-      repeat($._class_member),
+      repeat($._type_member),
       "}",
     ),
-    _class_member: $ => choice(
+    _type_member: $ => choice(
       alias($.assignment, $.instance_variable),
       $.procedure_declaration,
     ),

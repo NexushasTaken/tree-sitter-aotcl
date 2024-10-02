@@ -1,13 +1,7 @@
-[
-  (class_specifier
-    name: (identifier))
-  (extension_specifier
-    name: (identifier))
-  (cutscene_specifier
-    name: (identifier))
-  (component_specifier
-    name: (identifier))
-] @type
+(identifier) @variable
+
+(type_declaration
+  name: (identifier) @type)
 
 (instance_variable
   left: (identifier) @variable.member)
@@ -27,9 +21,9 @@
   field: (identifier) @variable.member)
 
 ; TODO: Is there another way?
-(field_access
-  object: (identifier) @variable
-  (#not-eq? @variable "self"))
+;(field_access
+;  object: (identifier) @variable
+;  (#not-eq? @variable "self"))
 
 ; procedure
 (procedure_call

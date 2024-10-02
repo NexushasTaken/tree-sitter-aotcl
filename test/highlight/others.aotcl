@@ -10,7 +10,7 @@ class Main {
     #          ^ function.method.call
 
     self.field = Main.call() + 4;
-    #            ^ type
+    #            ^ variable
     #                 ^ function.method.call
     op = -1 + 2 - 3 * 4 / 5;
     self.field = CustomClass.call();

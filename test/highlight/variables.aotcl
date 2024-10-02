@@ -37,7 +37,7 @@ class Main {
     # <- variable
 
     c = Main.a.b.func();
-    #   ^ type
+    #   ^ variable
     #        ^ variable.member
     #          ^ variable.member
     # <- variable

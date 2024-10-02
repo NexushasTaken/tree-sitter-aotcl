@@ -1,5 +1,5 @@
 class Main
-{   
+{
     Description = "Navigate the obstacle course as quickly as possible. Move towards green checkpoints and avoid the red kill regions.";
     StartDelay = 10.0;
     EndAfterWin = true;

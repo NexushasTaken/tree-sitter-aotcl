@@ -1,5 +1,5 @@
 class Main
-{   
+{
     Description = "Endless respawn, endless titans.";
     MaxTitans = 10;
     TitanSpawnEvery = 3.0;

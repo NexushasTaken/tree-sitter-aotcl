@@ -1,5 +1,5 @@
 class Main
-{	
+{
 	PointMode = false;
 	MaxPoints = 25;
 	RespawnDelay = 5.0;

@@ -1,5 +1,5 @@
 class Main
-{   
+{
     Description = "Survive multiple waves of titans.";
     StartTitans = 3;
     AddTitansPerWave = 1;

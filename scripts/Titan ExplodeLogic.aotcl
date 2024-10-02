@@ -1,5 +1,5 @@
 class Main
-{   
+{
     Description = "Titans will explode on death.";
     ExplodeRadius = 30.0;
     MaxTitans = 10;

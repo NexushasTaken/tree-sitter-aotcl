@@ -1,6 +1,6 @@
 [
   (block)
-  (class_block)
+  (type_block)
 ] @local.scope
 
 (block
