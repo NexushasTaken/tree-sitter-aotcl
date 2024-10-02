@@ -36,3 +36,6 @@ dist/
 *.wasm
 *.obj
 *.o
+
+# Testing tree-sitter though neovim
+queries/aotcl
