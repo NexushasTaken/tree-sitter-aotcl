@@ -1252,8 +1252,16 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\"[#.]*\""
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_content"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
         }
       ]
     },
@@ -1341,7 +1349,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_string_content"
+    }
+  ],
   "inline": [
     "_expression",
     "_primary",

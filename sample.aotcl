@@ -1,4 +1,4 @@
 # this is a line comment
 class Main {
-  var = "This is a string";
+  var = "A/* Inside string */B";
 }

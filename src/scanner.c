@@ -3,11 +3,11 @@
 #include "tree_sitter/array.h"
 
 enum TokenType {
-  STRING_CONTENT,
+    STRING_CONTENT,
 };
 
 void *tree_sitter_aotcl_external_scanner_create(void) {
-  return NULL;
+    return NULL;
 }
 
 void tree_sitter_aotcl_external_scanner_destroy(void *payload) {
@@ -28,5 +28,12 @@ void tree_sitter_aotcl_external_scanner_deserialize(
 }
 
 bool tree_sitter_aotcl_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
-  return false;
+    if (valid_symbols[STRING_CONTENT]) {
+        while (lexer->lookahead != '"') {
+            lexer->advance(lexer, false);
+        }
+        lexer->result_symbol = STRING_CONTENT;
+        return true;
+    }
+    return false;
 }

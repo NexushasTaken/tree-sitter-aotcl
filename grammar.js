@@ -31,6 +31,9 @@ module.exports = grammar({
     $.block_comment,
     /\s/,
   ],
+  externals: $ => [
+    $._string_content,
+  ],
   inline: $ => [
     $._expression,
     $._primary,
@@ -216,9 +219,9 @@ module.exports = grammar({
       $.parenthesized_expression,
     ),
     parenthesized_expression: $ => prec(PREC.PARENS, seq("(", $._expression, ")")),
-    string_primitive: _ => seq(
+    string_primitive: $ => seq(
       '"',
-      token.immediate(optional(/[^\\"\n]+/)),
+      $._string_content,
       '"',
     ),
     null_primitive: _ => "null",
